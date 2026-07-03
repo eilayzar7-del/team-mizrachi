@@ -257,6 +257,9 @@ nav.scry{height:60px;background:rgba(8,8,10,.82);backdrop-filter:blur(20px) satu
 .btn-wa{color:#062b14;background:var(--wa);font-weight:400;
   clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%)}
 .btn-wa:hover{background:#2ee36f;box-shadow:0 16px 44px -12px rgba(37,211,102,.55)}
+.btn-gold{color:#1c1305;background:linear-gradient(135deg,var(--gold-hi),var(--gold));font-weight:600;
+  clip-path:polygon(11px 0,100% 0,calc(100% - 11px) 100%,0 100%)}
+.btn-gold:hover{filter:brightness(1.08);box-shadow:0 16px 44px -12px rgba(203,162,75,.55)}
 .btn:active{transform:scale(.95)}
 /* spring-back */
 @keyframes spring{0%{transform:scale(.95)}55%{transform:scale(1.035)}78%{transform:scale(.99)}100%{transform:scale(1)}}
@@ -335,6 +338,18 @@ nav.scry{height:60px;background:rgba(8,8,10,.82);backdrop-filter:blur(20px) satu
 .f-opt .arr{margin-inline-start:auto;color:var(--faint);transition:color .25s,transform .25s}
 .f-opt:hover .arr{color:var(--blood-hi);transform:translateX(-4px)}
 
+/* finder — AI analyzing transition */
+.f-analyze{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  padding:54px 20px;text-align:center;min-height:280px;animation:resIn .4s var(--ease) both}
+.f-an-ring{position:relative;width:64px;height:64px;display:grid;place-items:center}
+.f-an-ring svg{position:absolute;inset:0;width:64px;height:64px;transform:rotate(-90deg)}
+.fa-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:3}
+.fa-bar{fill:none;stroke:var(--blood);stroke-width:3;stroke-linecap:round;stroke-dasharray:50 163.6;animation:faSpin 1.1s linear infinite}
+@keyframes faSpin{to{stroke-dashoffset:-213.6}}
+.fa-ic{position:relative;z-index:1;color:var(--blood-hi);animation:faPulse 1.4s ease-in-out infinite}
+@keyframes faPulse{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:1;transform:scale(1.08)}}
+.f-an-t{font-family:var(--f-body);font-size:.92rem;color:var(--muted);min-height:1.4em;transition:opacity .22s}
+
 /* finder result */
 .f-result{text-align:center;animation:resIn .5s var(--ease) both}
 @keyframes resIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
@@ -346,7 +361,15 @@ nav.scry{height:60px;background:rgba(8,8,10,.82);backdrop-filter:blur(20px) satu
   background:linear-gradient(180deg,var(--blood-hi),var(--blood));-webkit-background-clip:text;background-clip:text;
   margin-bottom:8px}
 .f-rec-he{font-family:var(--f-head);font-weight:900;font-size:1.5rem;color:var(--bone);margin-bottom:10px}
-.f-desc{max-width:480px;margin:0 auto 26px;color:var(--muted);font-weight:300;line-height:1.8}
+.f-score{display:inline-flex;align-items:baseline;gap:6px;font-family:var(--f-body);color:var(--muted);
+  font-size:.76rem;letter-spacing:.03em;margin-bottom:20px;text-transform:uppercase}
+.f-score b{font-family:var(--f-disp);font-size:1.5rem;color:var(--gold-hi);letter-spacing:0;text-transform:none}
+.f-desc{max-width:480px;margin:0 auto 22px;color:var(--muted);font-weight:300;line-height:1.8}
+.f-reasons{list-style:none;text-align:right;max-width:460px;margin:0 auto 28px;display:flex;flex-direction:column;gap:11px;
+  padding:18px 20px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:10px}
+html[lang=en] .f-reasons{text-align:left}
+.f-reasons li{display:flex;align-items:flex-start;gap:10px;font-size:.87rem;color:var(--muted);line-height:1.55;font-weight:300}
+.f-reasons li svg{flex-shrink:0;margin-top:3px;color:var(--blood-hi)}
 .f-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .f-reset{font-family:var(--f-stat);font-size:.82rem;letter-spacing:.1em;color:var(--muted);
   border-bottom:1px dashed var(--faint);padding-bottom:2px;background:none;transition:color .2s,border-color .2s}
@@ -455,6 +478,7 @@ tbody tr:hover{background:rgba(209,0,0,.04)}
 .th-time{font-family:var(--f-stat);font-weight:400;font-size:.95rem;color:var(--steel);
   padding:13px 18px;white-space:nowrap;letter-spacing:.02em}
 .cell{padding:11px 14px}
+.cell-loc{display:none}
 .chip{display:inline-block;font-size:.8rem;font-weight:500;padding:5px 11px;border-radius:7px;
   background:rgba(255,255,255,.05);color:var(--bone);border:1px solid var(--line);transition:transform .2s,border-color .2s}
 .chip:hover{transform:translateY(-1px);border-color:var(--line-r)}
@@ -517,6 +541,25 @@ footer{background:#000;border-top:1px solid var(--line);padding:54px 0 40px}
   padding:7px 13px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
 .fab.wa:hover::after{opacity:1;transform:translateY(-50%)}
 @keyframes waPulse{0%,100%{box-shadow:0 8px 24px -6px rgba(37,211,102,.4)}50%{box-shadow:0 8px 34px -4px rgba(37,211,102,.7),0 0 0 9px rgba(37,211,102,.06)}}
+
+/* ════════════ CAMP REGISTRATION BADGE ════════════ */
+.camp-badge{position:fixed;top:96px;inset-inline-end:16px;z-index:870;max-width:270px;
+  background:linear-gradient(155deg,#181109,#0c0a06);border:1px solid rgba(203,162,75,.35);
+  border-radius:14px;box-shadow:0 20px 50px -18px rgba(0,0,0,.75),0 0 0 1px rgba(203,162,75,.06);
+  backdrop-filter:blur(6px);animation:campIn .7s var(--ease) 1.6s both}
+@keyframes campIn{from{opacity:0;transform:translateY(-14px) scale(.96)}to{opacity:1;transform:none}}
+.camp-badge.hide{opacity:0;transform:translateY(-14px) scale(.96);pointer-events:none;transition:opacity .35s,transform .35s}
+.camp-badge-x{position:absolute;top:6px;inset-inline-end:7px;width:20px;height:20px;border-radius:50%;
+  color:var(--faint);font-size:.62rem;display:grid;place-items:center;transition:color .2s,background .2s;z-index:2}
+.camp-badge-x:hover{color:var(--bone);background:rgba(255,255,255,.1)}
+.camp-badge-link{display:flex;align-items:center;gap:11px;padding:15px 32px 15px 15px;text-decoration:none;color:inherit}
+html[lang=en] .camp-badge-link{padding:15px 15px 15px 32px}
+.camp-badge-ic{font-size:1.6rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(203,162,75,.5))}
+.camp-badge-txt{display:flex;flex-direction:column;gap:3px}
+.camp-badge-txt b{font-family:var(--f-head);font-size:.82rem;color:var(--gold-hi);font-weight:700;line-height:1.25}
+.camp-badge-txt span:last-child{font-size:.68rem;color:var(--muted);line-height:1.3}
+@media(max-width:640px){.camp-badge{inset-inline-end:10px;max-width:220px}}
+@media(max-width:400px){.camp-badge{max-width:190px}.camp-badge-txt b{font-size:.76rem}.camp-badge-txt span:last-child{font-size:.64rem}}
 
 /* scroll-to-top */
 #toTop{position:fixed;bottom:96px;inset-inline-end:20px;z-index:880;width:46px;height:46px;border-radius:12px;
@@ -870,12 +913,23 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
 .reel-embed{position:relative;width:100%;height:0;padding-bottom:172%;background:#0a0a0c;overflow:hidden}
 .reel-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .6s ease}
 .reel-embed iframe.ld{opacity:1}
-.reel-skel{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);text-decoration:none;background:radial-gradient(ellipse at center,#150f12,#0a0a0c)}
+.reel-skel{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:var(--muted);text-decoration:none;background:radial-gradient(ellipse at center,#150f12,#0a0a0c)}
 .reel-skel.hide{opacity:0;pointer-events:none;transition:opacity .5s}
-.reel-spin{position:absolute;width:54px;height:54px;border-radius:50%;border:2px solid transparent;border-top-color:var(--blood);border-right-color:var(--blood);animation:spin 1s linear infinite}
-.reel-play{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);box-shadow:0 10px 30px -6px rgba(220,39,67,.55);position:relative;z-index:1;transition:transform .3s var(--ease-spring)}
+.reel-skel::before{content:'';position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse at 50% 40%,#1c1315,#09090b 78%);opacity:0;transition:opacity .45s ease}
+.reel-skel.loading::before{opacity:1}
+.reel-progress{position:absolute;top:50%;left:50%;width:92px;height:92px;display:grid;place-items:center;opacity:0;transform:translate(-50%,-50%) scale(.85);transition:opacity .4s,transform .4s;pointer-events:none;z-index:1}
+.reel-skel.loading .reel-progress{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.reel-progress svg{position:absolute;inset:0;width:92px;height:92px;transform:rotate(-90deg);transform-origin:50% 50%}
+.rp-bg{fill:none;stroke:rgba(255,255,255,.09);stroke-width:2.5}
+.rp-bar{fill:none;stroke:url(#rpGrad);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:219.9;stroke-dashoffset:219.9;transition:stroke-dashoffset .18s linear}
+.rp-pct{position:relative;z-index:1;font-family:var(--f-stat);font-size:1.5rem;font-weight:500;color:var(--bone);letter-spacing:.01em;font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
+.reel-play{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);box-shadow:0 10px 30px -6px rgba(220,39,67,.55);position:relative;z-index:1;transition:transform .3s var(--ease-spring),opacity .3s}
 .reel-skel:hover .reel-play{transform:scale(1.08)}
-.reel-skel-t{font-size:.8rem;letter-spacing:.04em;position:relative;z-index:1}
+.reel-skel.loading .reel-play{opacity:0;transform:scale(.7);pointer-events:none}
+.reel-skel-t{font-size:.8rem;letter-spacing:.04em;position:relative;z-index:1;text-align:center;padding:0 20px;transition:color .2s}
+.reel-skel.loading .reel-skel-t{color:var(--muted);font-size:.76rem}
+.reel-skel.fallback .reel-skel-t{color:var(--blood-hi)}
 @media(max-width:860px){.promo-grid{grid-template-columns:1fr;gap:32px}.promo-media{order:-1}.reel-frame{max-width:320px}.promo-text{text-align:center}.promo-stats{justify-content:center}.show-social{justify-content:center}.promo-p{margin-inline:auto}}
 
 /* ══ CREATOR BAND ══ */
@@ -927,23 +981,33 @@ html.theme-anim .nvbtn,html.theme-anim .ctx,html.theme-anim body
 .f-actions{align-items:center}
 @media(max-width:520px){.f-actions{flex-direction:column}.f-actions .btn{width:100%;justify-content:center}}
 
-/* ══ SCHEDULE MOBILE ══ */
+/* ══ SCHEDULE MOBILE — spacious card layout, no cramped horizontal-scroll table ══ */
 @media(max-width:640px){
-  .sched-board{border-radius:12px}
-  .sched-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  table{min-width:0;width:100%;table-layout:fixed}
+  .sched-board{border-radius:14px;background:transparent;border-color:transparent}
+  .sched-scroll{overflow-x:visible}
+  table{min-width:0;width:100%;border-collapse:separate;border-spacing:0}
   thead{display:none}
-  tbody tr{display:grid;grid-template-columns:56px 1fr 1fr;align-items:center;
-    border-bottom:1px solid var(--line2);padding:0}
-  tbody tr:last-child{border-bottom:none}
-  td.th-time{font-size:.78rem;padding:10px 8px;color:var(--faint);text-align:center;
-    border-right:1px solid var(--line2);line-height:1.3}
-  td.cell{padding:9px 10px;font-size:.82rem}
-  .chip{font-size:.76rem;padding:5px 9px}
+  tbody{display:block}
+  tbody tr{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"time time" "green blue";
+    column-gap:10px;row-gap:12px;padding:16px 15px 17px;margin-bottom:11px;
+    border:1px solid var(--line);border-radius:13px;background:var(--card2)}
+  tbody tr:last-child{margin-bottom:0}
+  td.th-time{grid-area:time;text-align:center;font-size:.98rem;font-weight:500;color:var(--bone);
+    padding:0 0 12px;border-right:none;border-bottom:1px solid var(--line2);letter-spacing:.02em;white-space:normal}
+  td.cell{padding:0;font-size:.85rem;display:flex;flex-direction:column;align-items:stretch;gap:7px}
+  td.cell:nth-of-type(2){grid-area:green}
+  td.cell:nth-of-type(3){grid-area:blue}
+  .cell-loc{display:flex;align-items:center;gap:4px;font-size:.63rem;letter-spacing:.06em;
+    color:var(--faint);text-transform:uppercase;font-weight:700}
+  .chip{font-size:.8rem;padding:7px 10px;width:100%;text-align:center;line-height:1.35;white-space:normal}
   .tabs{width:100%;justify-content:stretch}
   .tab{flex:1;text-align:center;font-size:1rem;padding:9px 6px}
   .sched-foot{flex-direction:column;gap:10px;text-align:center}
   .sched-foot>span{justify-content:center}
+}
+@media(max-width:380px){
+  tbody tr{grid-template-columns:1fr;grid-template-areas:"time" "green" "blue";row-gap:10px}
+  td.th-time{border-bottom:1px solid var(--line2)}
 }
 </style>
 </head>
@@ -1037,6 +1101,7 @@ html.theme-anim .nvbtn,html.theme-anim .ctx,html.theme-anim body
       <div class="show-social">
         <a class="btn btn-md btn-fill tappable" data-wa="join" target="_blank" rel="noopener"><span class="sweep"></span><span class="lh">שיעור ניסיון חינם</span><span class="le">Free Trial Class</span></a>
         <a class="btn btn-md btn-ghost tappable" href="https://www.instagram.com/reel/DJ6lN1_NdCH/" target="_blank" rel="noopener"><span class="lh">▶ צפה באינסטגרם</span><span class="le">▶ Watch on Instagram</span></a>
+        <a class="btn btn-md btn-gold tappable" data-reg="camp" target="_blank" rel="noopener"><span class="lh">🏕️ הרשמה למחנה קיץ</span><span class="le">🏕️ Summer Camp Signup</span></a>
       </div>
     </div>
     <div class="promo-media rev d2">
@@ -1044,9 +1109,16 @@ html.theme-anim .nvbtn,html.theme-anim .ctx,html.theme-anim body
         <div class="reel-bar"><span class="reel-dot"></span><b>@teammizrachimma</b><span class="reel-tag"><span class="lh">סרטון תדמית</span><span class="le">PROMO</span></span></div>
         <div class="reel-embed">
           <a class="reel-skel" id="reelSkel" href="https://www.instagram.com/reel/DJ6lN1_NdCH/" target="_blank" rel="noopener">
-            <span class="reel-spin"></span>
+            <span class="reel-progress" id="reelProgress">
+              <svg viewBox="0 0 80 80">
+                <defs><linearGradient id="rpGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF2E2E"/><stop offset="100%" stop-color="#D10000"/></linearGradient></defs>
+                <circle class="rp-bg" cx="40" cy="40" r="35"/>
+                <circle class="rp-bar" cx="40" cy="40" r="35"/>
+              </svg>
+              <span class="rp-pct" id="reelPct">0%</span>
+            </span>
             <span class="reel-play"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-            <span class="reel-skel-t"><span class="lh">טוען סרטון…</span><span class="le">Loading reel…</span></span>
+            <span class="reel-skel-t"><span class="lh">לחץ לצפייה</span><span class="le">Tap to watch</span></span>
           </a>
           <iframe id="reelIframe" data-src="https://www.instagram.com/reel/DJ6lN1_NdCH/embed/" title="Team Mizrachi promo reel" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen scrolling="no"></iframe>
         </div>
@@ -1169,6 +1241,9 @@ html.theme-anim .nvbtn,html.theme-anim .ctx,html.theme-anim body
         <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         <span class="lh">שלח הודעה בוואטסאפ</span><span class="le">Message on WhatsApp</span>
       </a>
+      <a class="btn btn-lg btn-gold tappable" data-reg="camp" target="_blank" rel="noopener">
+        <span class="lh">🏕️ הרשמה למחנה הקיץ</span><span class="le">🏕️ Register for Summer Camp</span>
+      </a>
     </div>
     <p class="cta-note rev d4"><span class="lh">יום שישי — שיעורים פתוחים <b>ללא עלות</b> · בוא להתנסות</span><span class="le">Friday — open classes at <b>no cost</b> · come try it</span></p>
   </div>
@@ -1210,6 +1285,18 @@ html.theme-anim .nvbtn,html.theme-anim .ctx,html.theme-anim body
   </div>
 </footer>
 
+<!-- ════ CAMP REGISTRATION BADGE ════ -->
+<div class="camp-badge" id="campBadge">
+  <button class="camp-badge-x" id="campBadgeX" aria-label="סגור">✕</button>
+  <a class="camp-badge-link tappable" data-reg="camp" target="_blank" rel="noopener">
+    <span class="camp-badge-ic">🏕️</span>
+    <span class="camp-badge-txt">
+      <b><span class="lh">מחנה אימונים קיץ 2026</span><span class="le">Summer Training Camp 2026</span></b>
+      <span><span class="lh">ההרשמה נפתחה — לחצו כאן</span><span class="le">Registration is open — tap here</span></span>
+    </span>
+  </a>
+</div>
+
 <!-- ════ FLOAT DOCK ════ -->
 <div class="dock">
   <a class="fab tt tappable" href="https://www.tiktok.com/@teammizrachimma" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
@@ -1243,6 +1330,29 @@ $$('[data-wa]').forEach(function(el){
   var k=el.getAttribute('data-wa');
   el.href=wa(WA_MSGS[k]||WA_MSGS.join);
 });
+
+/* ── Summer camp registration links ── */
+var REG_URL='https://team-mizrachi-kaytzanet.netlify.app/';
+$$('[data-reg]').forEach(function(el){
+  el.href=REG_URL;
+  el.target='_blank';
+  el.rel='noopener';
+});
+
+/* ── Camp registration badge: dismissible once per session ── */
+(function(){
+  var cb=document.getElementById('campBadge');
+  if(!cb)return;
+  var seen;try{seen=sessionStorage.getItem('campBadgeSeen')}catch(_){}
+  if(seen){cb.style.display='none';return;}
+  var x=document.getElementById('campBadgeX');
+  if(x)x.addEventListener('click',function(e){
+    e.preventDefault();e.stopPropagation();
+    cb.classList.add('hide');
+    try{sessionStorage.setItem('campBadgeSeen','1')}catch(_){}
+    setTimeout(function(){cb.style.display='none'},400);
+  });
+})();
 
 /* ── DATA ── */
 var DISCIPLINES=[
@@ -1335,7 +1445,9 @@ function chip(txt,free){
        '<th><span class="lh">שעה</span><span class="le">Time</span></th><th><span class="loc green">📍 הירוק</span></th><th><span class="loc blue">📍 CENTER</span></th></tr></thead><tbody>';
     DAYS[d].forEach(function(r){
       var free=r[3]==='free';
-      h+='<tr><td class="th-time">'+r[0]+'</td><td class="cell">'+chip(r[1],free)+'</td><td class="cell">'+chip(r[2],free)+'</td></tr>';
+      h+='<tr><td class="th-time">'+r[0]+'</td>'+
+         '<td class="cell"><span class="cell-loc">📍 <span class="lh">הירוק</span><span class="le">Green</span></span>'+chip(r[1],free)+'</td>'+
+         '<td class="cell"><span class="cell-loc">📍 CENTER</span>'+chip(r[2],free)+'</td></tr>';
     });
     h+='</tbody></table></div>';
   });
@@ -1538,29 +1650,65 @@ setTimeout(function(){moveInd($('.tab.on'))},400);
 /* ── FINDER (signature interactive) ── */
 function L2(a,b){return '<span class="lh">'+a+'</span><span class="le">'+b+'</span>';}
 var FQ=[
- {q:L2('מי הולך <span class="r">להתאמן?</span>','Who\'s going to <span class="r">train?</span>'),step:L2('שלב 1 מתוך 2','Step 1 of 2'),opts:[
+ {q:L2('מי הולך <span class="r">להתאמן?</span>','Who\'s going to <span class="r">train?</span>'),step:L2('שלב 1 מתוך 4','Step 1 of 4'),opts:[
    {ic:'users',t:L2('אני — בוגר/ת','Me — adult'),s:L2('18+','18+'),v:'adult'},
    {ic:'flame',t:L2('נוער','Teen'),s:L2('גילאי 12–17','Ages 12–17'),v:'teen'},
    {ic:'child',t:L2('ילד/ה','Kid'),s:L2('גילאי 4–11','Ages 4–11'),v:'kid'},
    {ic:'heart',t:L2('אישה','Woman'),s:L2('קבוצות נשים בלבד','Women-only groups'),v:'women'}
  ]},
- {q:L2('מה <span class="r">המטרה</span> שלך?','What\'s your <span class="r">goal?</span>'),step:L2('שלב 2 מתוך 2','Step 2 of 2'),opts:[
+ {q:L2('מה <span class="r">המטרה</span> שלך?','What\'s your <span class="r">goal?</span>'),step:L2('שלב 2 מתוך 4','Step 2 of 4'),opts:[
    {ic:'flame',t:L2('כושר ושחרור','Fitness & release'),s:L2('להזיע, להתפרק, להרגיש חזק','Sweat, let go, feel strong'),v:'fit'},
    {ic:'shield',t:L2('הגנה עצמית','Self-defense'),s:L2('ביטחון אמיתי ברחוב','Real street confidence'),v:'defense'},
    {ic:'target',t:L2('תחרות וספורט','Competition & sport'),s:L2('להילחם, להתחרות, לנצח','Fight, compete, win'),v:'compete'},
    {ic:'heart',t:L2('ביטחון עצמי','Self-confidence'),s:L2('משמעת, ראש שקט, גוף בריא','Discipline, calm, health'),v:'confidence'}
+ ]},
+ {q:L2('מה <span class="r">רמת הניסיון</span> שלך?','What\'s your <span class="r">experience level?</span>'),step:L2('שלב 3 מתוך 4','Step 3 of 4'),opts:[
+   {ic:'heart',t:L2('מתחיל/ה לגמרי','Complete beginner'),s:L2('אף פעם לא התאמנתי','Never trained before'),v:'beginner'},
+   {ic:'strike',t:L2('יש לי קצת ניסיון','Some experience'),s:L2('התנסיתי בעבר','Tried it before'),v:'some'},
+   {ic:'target',t:L2('מתקדם/ת','Advanced'),s:L2('מתאמן/ת כבר תקופה','Been training for a while'),v:'advanced'},
+   {ic:'shield',t:L2('חוזר/ת אחרי הפסקה','Returning after a break'),s:L2('התאמנתי בעבר ועצרתי','Trained before, then stopped'),v:'return'}
+ ]},
+ {q:L2('מתי תרצה/י <span class="r">להתחיל?</span>','When do you want <span class="r">to start?</span>'),step:L2('שלב 4 מתוך 4','Step 4 of 4'),opts:[
+   {ic:'flame',t:L2('השבוע!','This week!'),s:L2('מוכן/ה להתחיל מיד','Ready to start now'),v:'now'},
+   {ic:'target',t:L2('בשבועיים הקרובים','In the next 2 weeks'),s:L2('מתארגן/ת','Getting organized'),v:'soon'},
+   {ic:'users',t:L2('תוך חודש','Within a month'),s:L2('עוד לא ממהר/ת','No rush yet'),v:'month'},
+   {ic:'judo',t:L2('רק בודק/ת לעת עתה','Just exploring for now'),s:L2('אוסף/ת מידע','Gathering info'),v:'exploring'}
  ]}
 ];
-function recommend(who,goal){
- if(who==='kid')return{lat:'KIDS',he:L2('ג\'ימבו · ג\'ודו לילדים','Gymbo · Kids Judo'),desc:L2('מסגרת חמה ובטוחה שבונה ביטחון, משמעת ותיאום — דרך משחק ותנועה. הצעד המושלם הראשון.','A warm, safe setting that builds confidence, discipline and coordination through play. The perfect first step.'),cls:'Gymbo / Kids Judo'};
- if(who==='teen')return{lat:'MMA',he:L2('MMA נוער · איגרוף תאילנדי','Teen MMA · Muay Thai'),desc:L2('אנרגיה, כוח וביטחון בגיל הנכון. שילוב של עמידה, קרקע ואיגרוף — בקבוצת נוער מובילה.','Energy, power and confidence at the right age. Striking, ground & boxing in a leading teen group.'),cls:'Teen MMA / Muay Thai'};
- if(who==='women')return{lat:'WOMEN',he:L2('הגנה עצמית · איגרוף לנשים','Self-Defense · Women\'s Boxing'),desc:L2('קבוצות נשים בלבד, אווירה תומכת ומאמנת מקצועית. כוח, ביטחון וכלים אמיתיים להגנה עצמית.','Women-only groups, a supportive vibe and a pro coach. Strength, confidence and real self-defense tools.'),cls:'Self-Defense / Women\'s Boxing'};
- if(goal==='defense')return{lat:'KRAV',he:L2('קרב מגע','Krav Maga'),desc:L2('הגנה עצמית ישראלית, פרקטית ויעילה. לומדים להגיב מהר, בלי כללים — לשרוד כל סיטואציה.','Israeli self-defense, practical and effective. React fast, no rules — survive any situation.'),cls:'Krav Maga'};
- if(goal==='compete')return{lat:'MMA',he:L2('MMA · BJJ','MMA · BJJ'),desc:L2('הדיסציפלינה השלמה. עמידה, קליל\'ה והגשות — מסלול אמיתי לתחרות תחת מאמנים בכירים.','The complete discipline. Striking, clinch and submissions — a real path to competition.'),cls:'MMA / BJJ'};
- if(goal==='fit')return{lat:'THAI',he:L2('איגרוף תאילנדי · MMA','Muay Thai · MMA'),desc:L2('האימון שמדליק את הגוף. בעיטות, אגרופים וברכיים — קלוריות נשרפות, אבל הראש מתנקה.','The workout that lights you up. Kicks, punches and knees — calories burn, the mind clears.'),cls:'Muay Thai / MMA'};
- return{lat:'MMA',he:L2('MMA · קרב מגע','MMA · Krav Maga'),desc:L2('הדרך לבנות ביטחון אמיתי: משמעת, כושר וכלים שעובדים. כל אימון הוא צעד קדימה.','The way to build real confidence: discipline, fitness and tools that work. Every session is a step forward.'),cls:'MMA / Krav Maga'};
+function recommend(who,goal,exp,timing){
+ var r;
+ if(who==='kid')r={lat:'KIDS',he:L2('ג\'ימבו · ג\'ודו לילדים','Gymbo · Kids Judo'),desc:L2('מסגרת חמה ובטוחה שבונה ביטחון, משמעת ותיאום — דרך משחק ותנועה. הצעד המושלם הראשון.','A warm, safe setting that builds confidence, discipline and coordination through play. The perfect first step.'),cls:'Gymbo / Kids Judo',score:96,
+   fact:L2('קבוצות קטנות לפי גיל, עם מאמנים שיודעים בדיוק איך לדבר בשפה של ילדים','Small age-grouped classes with coaches who know exactly how to speak a kid\'s language')};
+ else if(who==='teen')r={lat:'MMA',he:L2('MMA נוער · איגרוף תאילנדי','Teen MMA · Muay Thai'),desc:L2('אנרגיה, כוח וביטחון בגיל הנכון. שילוב של עמידה, קרקע ואיגרוף — בקבוצת נוער מובילה.','Energy, power and confidence at the right age. Striking, ground & boxing in a leading teen group.'),cls:'Teen MMA / Muay Thai',score:94,
+   fact:L2('שילוב עמידה, קרקע ואיגרוף בקבוצת הנוער המובילה באזור','Striking, ground and boxing combined in the area\'s leading teen group')};
+ else if(who==='women')r={lat:'WOMEN',he:L2('הגנה עצמית · איגרוף לנשים','Self-Defense · Women\'s Boxing'),desc:L2('קבוצות נשים בלבד, אווירה תומכת ומאמנת מקצועית. כוח, ביטחון וכלים אמיתיים להגנה עצמית.','Women-only groups, a supportive vibe and a pro coach. Strength, confidence and real self-defense tools.'),cls:'Self-Defense / Women\'s Boxing',score:97,
+   fact:L2('קבוצות נשים בלבד, מאמנת מקצועית ואווירה תומכת ובלי שיפוטיות','Women-only groups, a pro coach and a supportive, judgment-free vibe')};
+ else if(goal==='defense')r={lat:'KRAV',he:L2('קרב מגע','Krav Maga'),desc:L2('הגנה עצמית ישראלית, פרקטית ויעילה. לומדים להגיב מהר, בלי כללים — לשרוד כל סיטואציה.','Israeli self-defense, practical and effective. React fast, no rules — survive any situation.'),cls:'Krav Maga',score:93,
+   fact:L2('שיטה ישראלית פרקטית שנועדה לתת מענה אמיתי לכל מצב','A practical Israeli method built to give a real answer to any situation')};
+ else if(goal==='compete')r={lat:'MMA',he:L2('MMA · BJJ','MMA · BJJ'),desc:L2('הדיסציפלינה השלמה. עמידה, קליל\'ה והגשות — מסלול אמיתי לתחרות תחת מאמנים בכירים.','The complete discipline. Striking, clinch and submissions — a real path to competition.'),cls:'MMA / BJJ',score:95,
+   fact:L2('מסלול אמיתי לתחרות תחת מאמנים בכירים עם 15+ שנות ניסיון','A real competition track under senior coaches with 15+ years of experience')};
+ else if(goal==='fit')r={lat:'THAI',he:L2('איגרוף תאילנדי · MMA','Muay Thai · MMA'),desc:L2('האימון שמדליק את הגוף. בעיטות, אגרופים וברכיים — קלוריות נשרפות, אבל הראש מתנקה.','The workout that lights you up. Kicks, punches and knees — calories burn, the mind clears.'),cls:'Muay Thai / MMA',score:95,
+   fact:L2('אימון אינטרוולים שמבעיר קלוריות ומנקה את הראש תוך שעה אחת','An interval workout that torches calories and clears your head in one hour')};
+ else r={lat:'MMA',he:L2('MMA · קרב מגע','MMA · Krav Maga'),desc:L2('הדרך לבנות ביטחון אמיתי: משמעת, כושר וכלים שעובדים. כל אימון הוא צעד קדימה.','The way to build real confidence: discipline, fitness and tools that work. Every session is a step forward.'),cls:'MMA / Krav Maga',score:92,
+   fact:L2('שילוב שבונה גם ביטחון וגם כלים אמיתיים להגנה עצמית','A combination that builds both confidence and real self-defense tools')};
+ var reasons=[r.fact];
+ if(exp==='beginner')reasons.push(L2('קצב לימוד סבלני שמתחיל מהיסודות — בלי שום ניסיון קודם נדרש','A patient, ground-up pace — zero prior experience required'));
+ else if(exp==='some')reasons.push(L2('ממשיכים בדיוק מהנקודה שבה עצרת, ומאיצים משם קדימה','Picks up exactly where you left off, and speeds things up from there'));
+ else if(exp==='advanced')reasons.push(L2('רמה טכנית וקצב אימון גבוה, מול מאמנים ברמה בינלאומית','Technical depth and a high pace, training alongside internationally-ranked coaches'));
+ else reasons.push(L2('חזרה מדורגת וקשובה לגוף — בונים כושר מחדש בלי לסכן פציעה','A gradual, body-aware return — rebuilding fitness without risking injury'));
+ if(timing==='now')reasons.push(L2('יש לנו מקום פנוי להתחיל השבוע — שיעור ניסיון ראשון בחינם','We have room to start this week — your first trial class is free'));
+ else if(timing==='soon')reasons.push(L2('אפשר לתאם שיעור ניסיון כבר עכשיו ולהתחיל כשנוח לך','Book your trial now and start whenever works for you'));
+ else if(timing==='month')reasons.push(L2('אין שום לחץ — נשמור לך את הפרטים ותחזור/י כשמתאים','No pressure at all — we\'ll hold your details until you\'re ready'));
+ else reasons.push(L2('גם רק לבדוק זה בסדר גמור — שיעור ניסיון בחינם וללא שום התחייבות','Just checking it out is fine too — a free trial with zero commitment'));
+ r.reasons=reasons;
+ return r;
 }
 var fState={};
+var ANALYZE_MSGS=[
+  L2('סורק/ת את התשובות שלך…','Scanning your answers…'),
+  L2('משווה מול תחומי הלחימה שלנו…','Matching against our disciplines…'),
+  L2('בונה את ההמלצה המדויקת שלך…','Building your precise recommendation…')
+];
 function renderFinder(step){
   var body=$('#finderBody');var data=FQ[step];
   var dots='';for(var i=0;i<FQ.length;i++)dots+='<span class="f-dot'+(i<=step?' on':'')+'"></span>';
@@ -1577,29 +1725,54 @@ function renderFinder(step){
     b.addEventListener('click',function(){
        binder(b);var v=b.getAttribute('data-v');
       if(step===0){fState.who=v;setTimeout(function(){renderFinder(1)},180);}
-      else{fState.goal=v;setTimeout(showResult,180);}
+      else if(step===1){fState.goal=v;setTimeout(function(){renderFinder(2)},180);}
+      else if(step===2){fState.exp=v;setTimeout(function(){renderFinder(3)},180);}
+      else{fState.timing=v;setTimeout(showAnalyzing,180);}
     });
   });
 }
+function showAnalyzing(){
+  var body=$('#finderBody');
+  body.innerHTML='<div class="f-analyze">'+
+    '<div class="f-an-ring"><svg viewBox="0 0 80 80"><circle class="fa-bg" cx="40" cy="40" r="34"/><circle class="fa-bar" cx="40" cy="40" r="34"/></svg><span class="fa-ic">'+svg('target',24)+'</span></div>'+
+    '<div class="f-an-t" id="faText">'+ANALYZE_MSGS[0]+'</div>'+
+  '</div>';
+  var i=0,txt=$('#faText');
+  var iv=setInterval(function(){
+    i++;
+    if(txt&&i<ANALYZE_MSGS.length){
+      txt.style.opacity=0;
+      setTimeout(function(){txt.innerHTML=ANALYZE_MSGS[i];txt.style.opacity=1;},220);
+    }
+  },620);
+  setTimeout(function(){clearInterval(iv);showResult();},1950);
+}
 function showResult(){
-  var r=recommend(fState.who,fState.goal);
+  var r=recommend(fState.who,fState.goal,fState.exp,fState.timing);
   var en=document.documentElement.lang==='en';
-  var msg=en?('Hi! 🥊 I used "Find Your Style" on the Team Mizrachi site and got: '+r.cls+'. I\'d love details about a free trial!')
-            :('שלום! 🥊 עשיתי את "מצא את הסגנון שלך" באתר Team Mizrachi וקיבלתי: '+r.cls+'. אשמח לפרטים על שיעור ניסיון!');
-  var ask=en?('Tell me more about '+r.cls+' at Team Mizrachi — who is it for and how do I start?')
-            :('ספר/י לי עוד על '+r.cls+' ב-Team Mizrachi — למי זה מתאים ואיך מתחילים?');
+  var expLbl={beginner:en?'complete beginner':'מתחיל/ה לגמרי',some:en?'some experience':'עם קצת ניסיון',advanced:en?'advanced':'מתקדם/ת',return:en?'returning after a break':'חוזר/ת אחרי הפסקה'}[fState.exp]||'';
+  var timeLbl={now:en?'this week':'השבוע',soon:en?'in the next 2 weeks':'בשבועיים הקרובים',month:en?'within a month':'תוך חודש',exploring:en?'just exploring':'רק בודק/ת'}[fState.timing]||'';
+  var msg=en?('Hi! 🥊 I used "Find Your Style" on the Team Mizrachi site and got: '+r.cls+' ('+expLbl+', looking to start '+timeLbl+'). I\'d love details about a free trial!')
+            :('שלום! 🥊 עשיתי את "מצא את הסגנון שלך" באתר Team Mizrachi וקיבלתי: '+r.cls+' (רמה: '+expLbl+', רוצה להתחיל '+timeLbl+'). אשמח לפרטים על שיעור ניסיון!');
+  var ask=en?('Tell me more about '+r.cls+' at Team Mizrachi — I\'m '+expLbl+' and want to start '+timeLbl+'. Who is it for and how do I begin?')
+            :('ספר/י לי עוד על '+r.cls+' ב-Team Mizrachi — אני '+expLbl+' ורוצה להתחיל '+timeLbl+'. למי זה מתאים ואיך מתחילים?');
+  var reasonIc='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+  var reasons='';
+  r.reasons.forEach(function(rs){reasons+='<li>'+reasonIc+'<span>'+rs+'</span></li>';});
   var body=$('#finderBody');
   body.innerHTML='<div class="f-result">'+
     '<span class="f-badge">'+svg('target',15)+L2('הסגנון שלך','Your style')+'</span>'+
     '<div class="f-rec lat">'+r.lat+'</div>'+
     '<div class="f-rec-he">'+r.he+'</div>'+
+    '<div class="f-score">'+L2('רמת התאמה','Match level')+'<b>'+r.score+'%</b></div>'+
     '<p class="f-desc">'+r.desc+'</p>'+
+    '<ul class="f-reasons">'+reasons+'</ul>'+
     '<div class="f-actions">'+
       '<button class="btn btn-md btn-fill tappable" id="fAsk"><span class="sweep"></span>'+
         '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+
         L2('שאל את העוזר החכם','Ask the AI assistant')+'</button>'+
       '<a class="btn btn-md btn-wa tappable" href="'+wa(msg)+'" target="_blank" rel="noopener">'+'<svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>'+
-        L2('קבע שיעור ניסיון','Book a free trial')+'</a>'+
+        (fState.timing==='now'?L2('קבע שיעור ניסיון — השבוע!','Book a trial — this week!'):L2('קבע שיעור ניסיון','Book a free trial'))+'</a>'+
       '<button class="f-reset tappable" id="fReset">'+L2('נסה שוב ↺','Try again ↺')+'</button>'+
     '</div></div>';
   bindBtns(body);
@@ -1607,6 +1780,7 @@ function showResult(){
   $('#fReset').addEventListener('click',function(){fState={};renderFinder(0);bindBtns($('#finderBody'));});
 }
 renderFinder(0);
+
 
 /* ═══════════ UNIVERSAL BUTTON SATISFACTION ═══════════ */
 /* ripple from pointer */
@@ -1759,22 +1933,73 @@ if(mlb)mlb.addEventListener('click',toggleLang);
   $$('a,.ctx-item',ctx).forEach(function(a){a.addEventListener('click',function(){hide()})});
 })();
 
-/* ══════════════ LAZY INSTAGRAM REEL ══════════════ */
+/* ══════════════ INSTAGRAM REEL — click-to-play facade ══════════════
+   Nothing loads until the person actually asks for it: keeps #promo fast
+   and premium from first paint instead of racing Instagram's heavy embed
+   in the background while the rest of the page is still animating in. */
 (function(){
   var ifr=document.getElementById('reelIframe'),skel=document.getElementById('reelSkel');
-  if(!ifr)return;
-  var loaded=false;
+  if(!ifr||!skel)return;
+  var loaded=false,failed=false;
+  /* on-brand poster: reuse a photo already loaded elsewhere on the page
+     so the card looks like a real video thumbnail at zero extra cost */
+  var poster=document.querySelector('.show-photo img');
+  if(poster&&poster.src){
+    skel.style.backgroundImage="linear-gradient(180deg,rgba(10,10,12,.32),rgba(10,10,12,.9)),url('"+poster.src+"')";
+    skel.style.backgroundSize='cover';
+    skel.style.backgroundPosition='center 30%';
+  }
   function load(){
     if(loaded)return;loaded=true;
-    ifr.addEventListener('load',function(){ifr.classList.add('ld');if(skel)skel.classList.add('hide');});
+    skel.classList.add('loading');
+    var lh=skel.querySelector('.reel-skel-t .lh'),le=skel.querySelector('.reel-skel-t .le');
+    if(lh)lh.textContent='טוען את הסרטון…';
+    if(le)le.textContent='Loading your video…';
+    var pctEl=document.getElementById('reelPct'),bar=skel.querySelector('.rp-bar');
+    var CIRC=219.9,pct=0,raf,settled=false;
+    function paint(p){
+      pct=p;
+      if(pctEl)pctEl.textContent=Math.round(p)+'%';
+      if(bar)bar.style.strokeDashoffset=String(CIRC*(1-p/100));
+    }
+    paint(0);
+    var t0=performance.now?performance.now():Date.now();
+    function tick(){
+      if(settled)return;
+      var now=performance.now?performance.now():Date.now();
+      var el=(now-t0)/1000;
+      /* eases up to ~93% and waits there — never claims 100% until the video is truly ready */
+      var target=93*(1-Math.exp(-el/1.15));
+      if(target>pct)paint(target);
+      raf=requestAnimationFrame(tick);
+    }
+    raf=requestAnimationFrame(tick);
+    function finish(){
+      if(settled)return;settled=true;
+      if(raf)cancelAnimationFrame(raf);
+      paint(100);
+    }
+    ifr.addEventListener('load',function(){
+      finish();
+      setTimeout(function(){ifr.classList.add('ld');skel.classList.add('hide');},280);
+    });
     ifr.src=ifr.getAttribute('data-src');
-    /* fallback: if it never loads, keep the clickable poster */
-    setTimeout(function(){if(!ifr.classList.contains('ld')&&skel){/* leave poster visible as graceful link */}},6000);
+    setTimeout(function(){
+      if(!ifr.classList.contains('ld')){
+        settled=true;if(raf)cancelAnimationFrame(raf);
+        failed=true;
+        skel.classList.remove('loading');
+        skel.classList.add('fallback');
+        if(lh)lh.textContent='לא נטען? לחצו לצפייה באינסטגרם';
+        if(le)le.textContent='Not loading? Tap to view on Instagram';
+      }
+    },7000);
   }
-  if('IntersectionObserver'in window){
-    var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){load();io.disconnect();}},{rootMargin:'400px'});
-    io.observe(ifr.closest('#promo')||ifr);
-  }else{load();}
+  skel.addEventListener('click',function(e){
+    if(failed)return; /* let the link behave normally and open Instagram */
+    e.preventDefault();
+    load();
+  });
 })();
 
 /* year */
