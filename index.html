@@ -2024,15 +2024,15 @@ $('#yr').textContent=new Date().getFullYear();
 /* ═══════════════════════════════════════════════════════════════════
    TEAM MIZRACHI — AI CHATBOT (SECURE)
    ─────────────────────────────────────────────────────────────────────
-   🔒 מאובטח לחלוטין — המפתח שמור ב-Netlify Environment Variables.
-   הצ'אט שולח בקשות ל-/.netlify/functions/chat (server-side).
+   🔒 מאובטח לחלוטין — המפתח שמור ב-Vercel Environment Variables.
+   הצ'אט שולח בקשות ל-/api/chat (server-side).
    ✏️  נקודת עריכה יחידה: SYS — המידע/האישיות של הבוט (ערוך כרצונך).
 ═══════════════════════════════════════════════════════════════════════ */
 (function(){
 'use strict';
 
-/* ══════════🔒 המפתח מנוהל server-side ב-Netlify Environment Variables ══════ */
-/* אין צורך במפתח כאן — הצ'אט קורא ל-/.netlify/functions/chat */
+/* ══════════🔒 המפתח מנוהל server-side ב-Vercel Environment Variables ══════ */
+/* אין צורך במפתח כאן — הצ'אט קורא ל-/api/chat */
 
 /* ══════════════════ ✏️ ערוך כאן — מידע הבוט ══════════════════ */
 var SYS = `את/ה "פינת הלוחם" — נציג/ת השירות, המכירות והמידע הרשמי של Team Mizrachi, אקדמיה מקצועית לאומנויות לחימה בגבעת שמואל. את/ה מייצג/ת את האקדמיה בלבד ומספק/ת מידע מדויק, מקצועי ואמין. לעולם אל תציג/י את עצמך כ-AI, מודל שפה או צ'אטבוט — אלא אם שואלים על כך במפורש.
@@ -2236,7 +2236,7 @@ function realSend(){
       setStreaming(false);controller=null;
     }
   });
-  fetch('/.netlify/functions/chat',{
+  fetch('/api/chat',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({messages:[{role:'system',content:T().dir+SYS}].concat(msgs.slice(-MAX_HIST))}),
