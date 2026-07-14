@@ -157,6 +157,14 @@ body.cur-on a,body.cur-on button,body.cur-on .tappable{cursor:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulseLogo{0%,100%{filter:drop-shadow(0 0 16px rgba(209,0,0,.5))}50%{filter:drop-shadow(0 0 38px rgba(209,0,0,.95))}}
 #load.gone{opacity:0;visibility:hidden}
+/* finish flash — the half-second goodbye */
+#load .lname{transition:letter-spacing .3s var(--ease),text-shadow .3s}
+#load .lbar{transition:box-shadow .25s}
+#load .lpct{transition:color .25s,text-shadow .25s}
+#load.done .lname{letter-spacing:.45em;text-shadow:0 0 26px rgba(209,0,0,.85)}
+#load.done .lname b{text-shadow:0 0 34px rgba(255,46,46,.9)}
+#load.done .lbar{box-shadow:0 0 26px var(--blood),0 0 50px rgba(209,0,0,.5)}
+#load.done .lpct{color:var(--blood-hi);text-shadow:0 0 14px rgba(209,0,0,.7)}
 /* slash wipe reveal */
 #wipe{position:fixed;inset:0;z-index:9998;pointer-events:none;background:var(--blood);
   clip-path:polygon(0 0,0 0,0 100%,0 100%);transition:clip-path .7s var(--ease)}
@@ -359,6 +367,21 @@ nav.scry{height:60px;background:rgba(8,8,10,.82);backdrop-filter:blur(20px) satu
 .f-opt:active{transform:scale(.97)}
 .f-opt .arr{margin-inline-start:auto;color:var(--faint);transition:color .25s,transform .25s}
 .f-opt:hover .arr{color:var(--blood-hi);transform:translateX(-4px)}
+
+/* finder — opening effect: light sweep + staggered pop, replayed per question */
+.finder-shell.lit .f-top{animation:fIn .45s var(--ease) both}
+.finder-shell.lit .f-q{animation:fIn .5s var(--ease) .07s both}
+.finder-shell.lit .f-opt{animation:foptIn .5s var(--ease-spring) both}
+.finder-shell.lit .f-opt:nth-child(1){animation-delay:.12s}
+.finder-shell.lit .f-opt:nth-child(2){animation-delay:.19s}
+.finder-shell.lit .f-opt:nth-child(3){animation-delay:.26s}
+.finder-shell.lit .f-opt:nth-child(4){animation-delay:.33s}
+@keyframes fIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes foptIn{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+.finder-shell.lit::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.08) 50%,transparent 58%);
+  transform:translateX(-130%);animation:fSweep .9s ease .12s forwards}
+@keyframes fSweep{to{transform:translateX(130%)}}
 
 /* finder — AI analyzing transition */
 .f-analyze{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
@@ -1579,23 +1602,32 @@ function chip(txt,free){
   b.innerHTML=h;
 })();
 
-/* ── LOADER ── */
+/* ── LOADER — fast, cinematic, and skipped on same-session revisits ── */
 (function(){
   var bar=$('#lbar'),pct=$('#lpct'),load=$('#load'),wipe=$('#wipe');
+  var seen;try{seen=sessionStorage.getItem('tmSeen')}catch(_){}
   document.body.style.overflow='hidden';
+  function finish(){
+    try{sessionStorage.setItem('tmSeen','1')}catch(_){}
+    wipe.classList.add('go');
+    load.classList.add('gone');
+    document.body.style.overflow='';
+    boot();
+  }
+  if(seen||reduce){ /* returning visitor (or reduced motion): straight in */
+    bar.style.width='100%';pct.textContent='100%';
+    setTimeout(finish,reduce?40:120);
+    return;
+  }
   var p=0;
   var t=setInterval(function(){
-    p=Math.min(100,p+(p<65?3:p<88?1.4:.6));
+    p=Math.min(100,p+(p<70?6.5:p<90?3.2:2.2));
     bar.style.width=p+'%';pct.textContent=Math.floor(p)+'%';
     if(p>=100){clearInterval(t);
-      setTimeout(function(){
-        wipe.classList.add('go');
-        load.classList.add('gone');
-        document.body.style.overflow='';
-        boot();
-      },260);
+      load.classList.add('done'); /* finish flash */
+      setTimeout(finish,200);
     }
-  },reduce?6:20);
+  },16);
 })();
 
 /* ── BOOT after loader ── */
@@ -2554,10 +2586,19 @@ if(window.visualViewport){
    GSAP + SCROLLTRIGGER + LENIS — "מיליון דולר" layer
 ═══════════════════════════════════════════════════════════ */
 (function(){
-  if(typeof gsap==='undefined')return;
   var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var touch=('ontouchstart'in window)||navigator.maxTouchPoints>0;
-  if(reduce)return;
+  if(typeof gsap==='undefined'||reduce){
+    /* no GSAP (blocked CDN) or reduced motion: still fire the finder
+       opening effect via a plain observer; .rev handles the shell fade */
+    var fsb=document.querySelector('.finder-shell');
+    if(fsb&&!reduce){
+      new IntersectionObserver(function(es,o){
+        if(es[0].isIntersecting){fsb.classList.add('lit');o.disconnect();}
+      },{rootMargin:'0px 0px -8% 0px'}).observe(fsb);
+    }
+    return;
+  }
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -2687,12 +2728,14 @@ if(window.visualViewport){
     });
   });
 
-  /* ── FINDER SHELL ── */
+  /* ── FINDER SHELL — early, quick, with the .lit opening effect ── */
   var fshell=document.querySelector('.finder-shell');
   if(fshell){
-    gsap.fromTo(fshell,{y:55,opacity:0,scale:0.97},{
-      y:0,opacity:1,scale:1,duration:1.1,ease:'power3.out',
-      scrollTrigger:{trigger:fshell,start:'top 84%'}
+    fshell.classList.remove('rev','d2'); /* GSAP owns this reveal — avoid double animation */
+    gsap.fromTo(fshell,{y:42,opacity:0,scale:.965},{
+      y:0,opacity:1,scale:1,duration:.7,ease:'power3.out',
+      scrollTrigger:{trigger:'#finder',start:'top 88%'},
+      onStart:function(){fshell.classList.add('lit')}
     });
   }
 
