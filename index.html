@@ -944,6 +944,63 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
 .reel-skel.fallback .reel-skel-t{color:var(--blood-hi)}
 @media(max-width:860px){.promo-grid{grid-template-columns:1fr;gap:32px}.promo-media{order:-1}.reel-frame{max-width:320px}.promo-text{text-align:center}.promo-stats{justify-content:center}.show-social{justify-content:center}.promo-p{margin-inline:auto}}
 
+/* ══ WALL OF WINS — real competition moments ══ */
+#wins{position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 55% 60% at 15% 0%,rgba(203,162,75,.07),transparent 60%),
+    radial-gradient(ellipse 50% 55% at 90% 100%,rgba(209,0,0,.06),transparent 60%),
+    var(--ink2)}
+.wins-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.wins-sub{max-width:560px;color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.8;margin:14px 0 34px}
+.wins-sub b{color:var(--gold-hi);font-weight:500}
+.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.win-card{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;
+  border:1px solid var(--line);background:#0a0a0c;
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.02);
+  transition:transform .45s var(--ease),border-color .35s,box-shadow .45s var(--ease);will-change:transform}
+.win-card:hover{transform:translateY(-7px);border-color:rgba(203,162,75,.4);
+  box-shadow:0 34px 80px -30px rgba(0,0,0,.9),0 0 40px -18px rgba(203,162,75,.35)}
+.win-card.gold{border-color:rgba(203,162,75,.45)}
+.win-card::before{content:'';position:absolute;top:0;right:0;left:0;height:2.5px;z-index:5;
+  background:linear-gradient(90deg,transparent,var(--gold-d) 25%,var(--gold-hi) 50%,var(--gold-d) 75%,transparent)}
+.win-media{position:relative;width:100%;aspect-ratio:9/15;background:#0a0a0c;overflow:hidden;flex:1}
+.win-media img,.win-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.win-media img{transition:transform .8s var(--ease)}
+.win-card:hover .win-media img{transform:scale(1.04)}
+.win-media::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,rgba(8,8,10,.25),transparent 26%,transparent 62%,rgba(8,8,10,.82))}
+.win-tag{position:absolute;top:11px;inset-inline-start:11px;z-index:4;display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--f-disp);font-size:.74rem;letter-spacing:.16em;padding:5px 13px;color:#1a1206;
+  background:linear-gradient(90deg,var(--gold-hi),var(--gold));
+  clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.6),0 0 12px rgba(203,162,75,.35)}
+.win-tag.red{color:#fff;background:linear-gradient(90deg,var(--blood-hi),var(--blood));box-shadow:0 4px 14px -4px rgba(0,0,0,.6),0 0 12px rgba(209,0,0,.4)}
+.win-cap{position:absolute;bottom:0;right:0;left:0;z-index:3;padding:14px 15px 13px}
+.win-cap b{display:block;font-family:var(--f-head);font-weight:700;font-size:.95rem;color:var(--bone);line-height:1.35;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.win-cap>span{display:block;font-size:.74rem;font-weight:300;color:var(--steel);margin-top:3px;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.win-cap .le{display:none}
+html[lang=en] .win-cap .le{display:inline}
+html[lang=en] .win-cap .lh{display:none}
+/* sound toggle chip on video cards */
+.win-snd{position:absolute;bottom:12px;inset-inline-end:12px;z-index:4;width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;color:#fff;background:rgba(8,8,10,.62);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(6px);transition:transform .25s var(--ease-spring),background .2s,border-color .2s;cursor:pointer}
+.win-snd:hover{transform:scale(1.1);border-color:var(--gold);background:rgba(8,8,10,.8)}
+.win-snd svg{width:16px;height:16px}
+.win-snd .snd-on{display:none}
+.win-snd.on .snd-on{display:block}
+.win-snd.on .snd-off{display:none}
+/* play overlay for reduced-motion / pre-load state */
+.win-play{position:absolute;inset:0;z-index:3;display:grid;place-items:center;cursor:pointer;background:rgba(8,8,10,.12);transition:opacity .35s}
+.win-play i{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--blood-hi),var(--blood-deep));box-shadow:0 10px 30px -6px rgba(209,0,0,.6);
+  transition:transform .3s var(--ease-spring)}
+.win-play:hover i{transform:scale(1.1)}
+.win-play.off{opacity:0;pointer-events:none}
+.wins-foot{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+@media(max-width:980px){.wins-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.wins-grid{grid-template-columns:1fr}.win-media{aspect-ratio:9/13}}
+
 /* ══ CREATOR BAND ══ */
 .creator-band{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px;padding:18px 22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,rgba(209,0,0,.06),rgba(255,106,44,.03));position:relative;overflow:hidden}
 .creator-band::before{content:'';position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,var(--blood),var(--ember),transparent)}
@@ -1033,6 +1090,7 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
   <ul class="nlinks">
     <li><a href="#disc"><span class="lh">תחומים</span><span class="le">Disciplines</span></a></li>
     <li><a href="#coaches"><span class="lh">מאמנים</span><span class="le">Coaches</span></a></li>
+    <li><a href="#wins"><span class="lh">ניצחונות</span><span class="le">Wins</span></a></li>
     <li><a href="#sched"><span class="lh">לוח זמנים</span><span class="le">Schedule</span></a></li>
     <li><a href="#finder"><span class="lh">מצא סגנון</span><span class="le">Find Style</span></a></li>
   </ul>
@@ -1043,6 +1101,7 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
 <div id="mnav">
   <a href="#disc"><span class="lh">תחומים</span><span class="le">Disciplines</span></a>
   <a href="#coaches"><span class="lh">מאמנים</span><span class="le">Coaches</span></a>
+  <a href="#wins"><span class="lh">ניצחונות</span><span class="le">Wins</span></a>
   <a href="#sched"><span class="lh">לוח זמנים</span><span class="le">Schedule</span></a>
   <a href="#finder"><span class="lh">מצא סגנון</span><span class="le">Find Style</span></a>
   <div class="mnav-tools"><button class="nvbtn" id="mlangBtn" aria-label="Language"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span id="mlangTxt">EN</span></button></div>
@@ -1198,6 +1257,61 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
       <a class="btn btn-md btn-ghost tappable rev d2" data-wa="coach" target="_blank" rel="noopener"><span class="lh">דבר עם מאמן →</span><span class="le">Talk to a Coach →</span></a>
     </div>
     <div class="coach-grid" id="coachGrid"><!-- JS renders --></div>
+  </div>
+</section>
+
+<div class="slash"></div>
+
+<!-- ════ WALL OF WINS ════ -->
+<section id="wins">
+  <div class="wrap">
+    <div class="wins-head">
+      <div class="rev">
+        <div class="eyebrow"><span class="lh">תוצאות. לא דיבורים.</span><span class="le">Results. Not Talk.</span></div>
+        <h2 class="h-title"><span class="lh">קיר <span class="r">הניצחונות</span></span><span class="le">Wall of <span class="r">Wins</span></span></h2>
+      </div>
+      <a class="btn btn-md btn-ghost tappable rev d2" data-wa="join" target="_blank" rel="noopener"><span class="lh">רוצה לעמוד שם? →</span><span class="le">Want to stand there? →</span></a>
+    </div>
+    <p class="wins-sub rev d1"><span class="lh">רגעים אמיתיים מאליפות ישראל <b>NO-GI</b> — בלי בימוי ובלי פילטרים. הפודיום, ההנפות, והדרך לשם. הלוחמים האלה התחילו בדיוק איפה שאתה נמצא עכשיו.</span><span class="le">Real moments from the Israel <b>NO-GI</b> Championship — no staging, no filters. The podium, the raised hands, and the road there. These fighters started exactly where you are now.</span></p>
+    <div class="wins-grid" id="winsGrid">
+      <figure class="win-card gold rev">
+        <div class="win-media">
+          <img src="media/champ-podium.jpg" alt="לוחם Team Mizrachi על פודיום מקום ראשון באליפות ישראל NO-GI, עם המאמן" loading="lazy">
+          <span class="win-tag">🥇 <span class="lh">מקום 1</span><span class="le">1st Place</span></span>
+          <figcaption class="win-cap"><b><span class="lh">אלוף ישראל NO-GI</span><span class="le">Israel NO-GI Champion</span></b><span><span class="lh">הפודיום שלנו — והמאמן שמאחורי זה</span><span class="le">Our podium — and the coach behind it</span></span></figcaption>
+        </div>
+      </figure>
+      <figure class="win-card rev d1">
+        <div class="win-media">
+          <video src="media/win-action.mp4" poster="media/win-action.jpg" muted loop playsinline preload="none"></video>
+          <span class="win-tag red"><span class="lh">המהלך</span><span class="le">The Move</span></span>
+          <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+          <figcaption class="win-cap"><b><span class="lh">ביצוע שסוגר קרב</span><span class="le">A fight-finishing move</span></b><span><span class="lh">ישר מהמזרן — אליפות ישראל</span><span class="le">Straight off the mat — nationals</span></span></figcaption>
+        </div>
+      </figure>
+      <figure class="win-card rev d2">
+        <div class="win-media">
+          <video src="media/win-raise1.mp4" poster="media/win-raise1.jpg" muted loop playsinline preload="none"></video>
+          <span class="win-tag red"><span class="lh">הכרעה</span><span class="le">Verdict</span></span>
+          <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+          <figcaption class="win-cap"><b><span class="lh">השופט מניף את היד</span><span class="le">The ref raises the hand</span></b><span><span class="lh">ניצחון ללוחם שלנו</span><span class="le">Victory for our fighter</span></span></figcaption>
+        </div>
+      </figure>
+      <figure class="win-card rev d3">
+        <div class="win-media">
+          <video src="media/win-raise2.mp4" poster="media/win-raise2.jpg" muted loop playsinline preload="none"></video>
+          <span class="win-tag red"><span class="lh">עוד ניצחון</span><span class="le">Another Win</span></span>
+          <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+          <figcaption class="win-cap"><b><span class="lh">ועוד יד באוויר</span><span class="le">Another hand in the air</span></b><span><span class="lh">ככה נראית עבודה קשה</span><span class="le">This is what hard work looks like</span></span></figcaption>
+        </div>
+      </figure>
+    </div>
+    <div class="wins-foot rev d2">
+      <a class="btn btn-lg btn-gold tappable" data-wa="join" target="_blank" rel="noopener"><span class="lh">🥇 הניצחון הבא יכול להיות שלך</span><span class="le">🥇 The next win can be yours</span></a>
+    </div>
   </div>
 </section>
 
@@ -1616,7 +1730,7 @@ window.addEventListener('scroll',onScroll,{passive:true});
 window.tmOnScroll=onScroll; /* exposed for the GSAP/Lenis layer (separate IIFE) */
 
 /* side dots */
-var SEC=['hero','promo','finder','show','disc','coaches','sched','cta'].filter(function(id){return!!document.getElementById(id)});
+var SEC=['hero','promo','finder','show','disc','coaches','wins','sched','cta'].filter(function(id){return!!document.getElementById(id)});
 var dotWrap=document.createElement('div');dotWrap.className='dots';
 var dots=SEC.map(function(id){
   var d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',id);
@@ -2024,6 +2138,40 @@ if(mlb)mlb.addEventListener('click',toggleLang);
   });
 })();
 
+/* ══════════════ WALL OF WINS — smart video cards ══════════════
+   Muted looped autoplay while in view (IG-style), pause off-screen,
+   tap the chip to unmute. Reduced-motion users get tap-to-play. */
+(function(){
+  var cards=$$('#winsGrid .win-card');
+  if(!cards.length)return;
+  var vids=[];
+  cards.forEach(function(card){
+    var v=card.querySelector('video');if(!v)return;
+    var play=card.querySelector('.win-play'),snd=card.querySelector('.win-snd');
+    vids.push(v);
+    function showPlay(on){if(play)play.classList.toggle('off',!on)}
+    function start(){v.play().then(function(){showPlay(false)}).catch(function(){showPlay(true)})}
+    if(play)play.addEventListener('click',function(e){e.stopPropagation();start()});
+    if(snd)snd.addEventListener('click',function(e){
+      e.stopPropagation();
+      v.muted=!v.muted;snd.classList.toggle('on',!v.muted);
+      if(v.paused)start();
+      /* one card with sound at a time */
+      if(!v.muted)vids.forEach(function(o){if(o!==v){o.muted=true;
+        var os=o.closest('.win-card').querySelector('.win-snd');if(os)os.classList.remove('on');}});
+    });
+    /* tapping the video itself toggles pause/play */
+    v.addEventListener('click',function(){if(v.paused)start();else{v.pause();showPlay(true);}});
+    if(reduce){showPlay(true);return;} /* no autoplay for reduced motion */
+    new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting){start();}
+        else{v.pause();if(!v.muted){v.muted=true;if(snd)snd.classList.remove('on');}}
+      });
+    },{threshold:.35}).observe(card);
+  });
+})();
+
 /* year */
 $('#yr').textContent=new Date().getFullYear();
 
@@ -2090,7 +2238,7 @@ var SYS = `את/ה "פינת הלוחם" — נציג/ת השירות, המכי�
 עברית טבעית, ברורה ומקצועית. ידידותי אך לא מוגזם, בטוח בעצמך, אנושי. בלי שפה רובוטית, בלי יותר מדי אימוג'ים. אל תמציא/י מידע — אם חסר מידע, אמור/אמרי זאת בכנות. תמיד נסה/י להבין את הצרכים (גיל, ניסיון, מטרה).
 
 # המועדון
-מרכז מקצועי לאומנויות לחימה בגבעת שמואל. כתובת: האתרוג 2, גבעת שמואל. אימונים לילדים, נוער ובוגרים — החל מגיל 4. האקדמיה משתתפת בתחרויות בארץ ובחו"ל. מתאים למתחילים ולמתקדמים כאחד — אין צורך בניסיון קודם. האווירה מקצועית, בטוחה, חיובית, תומכת ומכבדת.
+מרכז מקצועי לאומנויות לחימה בגבעת שמואל. כתובת: האתרוג 2, גבעת שמואל. אימונים לילדים, נוער ובוגרים — החל מגיל 4. האקדמיה משתתפת בתחרויות בארץ ובחו"ל, ולוחמיה זוכים במדליות באליפויות ארציות — כולל מקום ראשון (מדליית זהב) באליפות ישראל NO-GI בג'יו ג'יטסו. אפשר לראות רגעים אמיתיים מהתחרויות בסקשן "קיר הניצחונות" באתר. מתאים למתחילים ולמתקדמים כאחד — אין צורך בניסיון קודם. האווירה מקצועית, בטוחה, חיובית, תומכת ומכבדת.
 
 # למה אצלנו (יתרונות)
 האימונים מפתחים: ביטחון עצמי, משמעת ושליטה עצמית, אומץ, התמדה ואחריות, כוח וסיבולת לב-ריאה, קואורדינציה, יציבות מנטלית, קשב וריכוז, מודעות עצמית וסביבתית, התמודדות עם לחץ וקבלת החלטות.
