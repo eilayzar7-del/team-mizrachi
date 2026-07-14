@@ -953,7 +953,7 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
 .wins-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:14px}
 .wins-sub{max-width:560px;color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.8;margin:14px 0 34px}
 .wins-sub b{color:var(--gold-hi);font-weight:500}
-.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.wins-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:stretch}
 .win-card{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;
   border:1px solid var(--line);background:#0a0a0c;
   box-shadow:0 24px 60px -28px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.02);
@@ -998,8 +998,9 @@ html[lang=en] .win-cap .lh{display:none}
 .win-play:hover i{transform:scale(1.1)}
 .win-play.off{opacity:0;pointer-events:none}
 .wins-foot{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
-@media(max-width:980px){.wins-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:430px){.wins-grid{grid-template-columns:1fr}.win-media{aspect-ratio:9/13}}
+@media(max-width:1080px){.wins-grid{grid-template-columns:repeat(3,1fr)}.win-card.gold{grid-column:span 2}}
+@media(max-width:740px){.wins-grid{grid-template-columns:1fr 1fr}.win-card.gold{grid-column:span 2}.win-card.gold .win-media{aspect-ratio:4/5}}
+@media(max-width:430px){.wins-grid{grid-template-columns:1fr}.win-card.gold{grid-column:auto}.win-media{aspect-ratio:9/13}.win-card.gold .win-media{aspect-ratio:3/4}}
 
 /* ══ CREATOR BAND ══ */
 .creator-band{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px;padding:18px 22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,rgba(209,0,0,.06),rgba(255,106,44,.03));position:relative;overflow:hidden}
@@ -1272,7 +1273,7 @@ html[lang=en] .win-cap .lh{display:none}
       </div>
       <a class="btn btn-md btn-ghost tappable rev d2" data-wa="join" target="_blank" rel="noopener"><span class="lh">רוצה לעמוד שם? →</span><span class="le">Want to stand there? →</span></a>
     </div>
-    <p class="wins-sub rev d1"><span class="lh">רגעים אמיתיים מאליפות ישראל <b>NO-GI</b> — בלי בימוי ובלי פילטרים. הפודיום, ההנפות, והדרך לשם. הלוחמים האלה התחילו בדיוק איפה שאתה נמצא עכשיו.</span><span class="le">Real moments from the Israel <b>NO-GI</b> Championship — no staging, no filters. The podium, the raised hands, and the road there. These fighters started exactly where you are now.</span></p>
+    <p class="wins-sub rev d1"><span class="lh">רגעים אמיתיים, בלי בימוי ובלי פילטרים — מהפודיום של אליפות ישראל <b>NO-GI</b> ועד העבודה הנקייה על המזרן אצלנו באולם. הלוחמים האלה התחילו בדיוק איפה שאתה נמצא עכשיו.</span><span class="le">Real moments, no staging, no filters — from the Israel <b>NO-GI</b> Championship podium to the clean work on our own mats. These fighters started exactly where you are now.</span></p>
     <div class="wins-grid" id="winsGrid">
       <figure class="win-card gold rev">
         <div class="win-media">
@@ -1288,6 +1289,15 @@ html[lang=en] .win-cap .lh{display:none}
           <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
           <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
           <figcaption class="win-cap"><b><span class="lh">ביצוע שסוגר קרב</span><span class="le">A fight-finishing move</span></b><span><span class="lh">ישר מהמזרן — אליפות ישראל</span><span class="le">Straight off the mat — nationals</span></span></figcaption>
+        </div>
+      </figure>
+      <figure class="win-card rev d2">
+        <div class="win-media">
+          <video src="media/win-kickbox.mp4" poster="media/win-kickbox.jpg" muted loop playsinline preload="none"></video>
+          <span class="win-tag red"><span class="lh">טכניקה</span><span class="le">Technique</span></span>
+          <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+          <figcaption class="win-cap"><b><span class="lh">קיקבוקס — טכניקה נקייה</span><span class="le">Kickboxing — clean technique</span></b><span><span class="lh">ספרינג מהאולם שלנו</span><span class="le">Sparring on our own mats</span></span></figcaption>
         </div>
       </figure>
       <figure class="win-card rev d2">
