@@ -63,7 +63,15 @@
   --maxw:1240px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
+/* NOTE: no scroll-behavior:smooth here on purpose — Lenis drives all smooth
+   scrolling in JS (see the GSAP/Lenis block near the end of the script).
+   Native CSS smooth-scroll fights Lenis's own per-frame scrollTo() calls
+   (each native smooth-scroll request re-triggers its own competing
+   interpolation), which is what made desktop wheel-scrolling feel heavy
+   and laggy. If Lenis ever fails to load, scroll instantly falls back to
+   the browser default — still fully usable, just not eased. */
+html.no-lenis{scroll-behavior:smooth}
 ::-webkit-scrollbar{width:9px}
 ::-webkit-scrollbar-track{background:#000}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--blood-deep),var(--blood));border-radius:6px;border:2px solid #000}
@@ -2424,6 +2432,19 @@ var SYS = `את/ה "פינת הלוחם" — נציג/ת השירות, המכי�
 # שעות והרשמה
 שעות מדויקות מופיעות בלוח הזמנים באתר (משתנות לפי גיל וקבוצה, בשני מתחמי האימון) — הפנה/י לשם או לתיאום בוואטסאפ. שיעור ניסיון ראשון — חינם, ללא התחייבות; בימי שישי גם שיעורים פתוחים ללא עלות. להרשמה ופרטים: וואטסאפ של האקדמיה 058-777-7750 — https://wa.me/972587777750
 
+# הרשמה רשמית לחוגים — מתנ"ס גבעת שמואל
+מעבר לשיעור ניסיון (שנקבע כאן בצ'אט או בוואטסאפ), ההרשמה הרשמית והתשלום לחוגים הקבועים מתבצעים דרך מערכת ההרשמה של מתנ"ס גבעת שמואל. בסקשן "הרשמה לחוגים" באתר יש כרטיס לחיץ עם קישור ישיר לכל חוג. אם שואלים איך/איפה נרשמים לחוג ספציפי — תני/תן את הקישור המדויק מהרשימה:
+• ג'ודו אולימפי עם אורי מזרחי, בית הירוק 27 — https://givatshmuel.org.il/%D7%92-%D7%95%D7%93%D7%95-%D7%94%D7%91%D7%99%D7%AA-%D7%94%D7%99%D7%A8%D7%95%D7%A7/
+• ג'ודו אולימפי עם אורי מזרחי, שלוחת יצחק שמיר 27 — https://givatshmuel.org.il/0-1782295041-/
+• ג'יו־ג'יטסו ברזילאי (BJJ), בית הירוק — https://givatshmuel.org.il/%D7%92-%D7%99%D7%90%D7%95%D7%92-%D7%99%D7%98%D7%A1%D7%95-%D7%91%D7%91%D7%99%D7%AA-%D7%94%D7%99%D7%A8%D7%95%D7%A7/
+• חוג MMA — אומנות לחימה, שלוחת יצחק שמיר 27 — https://givatshmuel.org.il/%D7%97%D7%95%D7%92-mma-%D7%90%D7%95%D7%9E%D7%A0%D7%95%D7%AA-%D7%9C%D7%97%D7%99%D7%9E%D7%94-%D7%91%D7%A9%D7%9C%D7%95%D7%97%D7%AA-%D7%99%D7%A6%D7%97%D7%A7-%D7%A9%D7%9E%D7%99%D7%A8-27/
+• חוג MMA — אומנות לחימה, בית ירוק 27 — https://givatshmuel.org.il/0-1782284516-/
+• אימוני הגנה עצמית לבנות — https://givatshmuel.org.il/%D7%90%D7%99%D7%9E%D7%95%D7%A0%D7%99-%D7%94%D7%92%D7%A0%D7%94-%D7%A2%D7%A6%D7%9E%D7%99%D7%AA-%D7%91%D7%A0%D7%95%D7%AA-teamizrachi-academy/
+• מנוי חופשי ALL-IN — פתוח לכלל אימוני האקדמיה — https://givatshmuel.org.il/%D7%9E%D7%A0%D7%95%D7%99-%D7%97%D7%95%D7%A4%D7%A9%D7%99-all-in-%D7%A4%D7%AA%D7%95%D7%97-%D7%9C%D7%9B%D7%9C%D7%9C-%D7%90%D7%99%D7%9E%D7%95%D7%A0%D7%99-%D7%94%D7%90%D7%A7%D7%93%D7%9E%D7%99%D7%94-teamizrachi-academy/
+• אגרוף תאילנדי (Muay Thai) — https://givatshmuel.org.il/%D7%90%D7%99%D7%92%D7%A8%D7%95%D7%A3-%D7%AA%D7%90%D7%99%D7%9C%D7%A0%D7%93%D7%99/
+• חוג אגרוף לנשים בלבד — https://givatshmuel.org.il/%D7%97%D7%95%D7%92-%D7%90%D7%99%D7%92%D7%A8%D7%95%D7%A3-%D7%A0%D7%A9%D7%99%D7%9D-teamizrachi-academy/
+שים/י לב: יש שני חוגי MMA ושני חוגי ג'ודו אולימפי (אותו תוכן, שני מתחמים שונים) — ודא/י מול המתעניין/ת לאיזה מתחם נוח לו/לה (בית הירוק 27 או יצחק שמיר 27) לפני שנותנ/ת קישור, ואם לא ברור — שאל/י.
+
 # קביעת שיעור ניסיון בתוך הצ'אט
 כשמתעניין/ת מביע/ה רצון לקבוע שיעור ניסיון (או עניין ממשי) — נהל/י את הקביעה כאן בצ'אט, אל תפנה/י לוואטסאפ. בקש/י את **כל הפרטים בהודעה אחת** — לעולם לא שאלה אחר שאלה — בפורמט ברור וקצר, למשל:
 "מעולה! 🥊 כדי שנשריין לך מקום, שלח/י לי הכל בהודעה אחת:
@@ -2714,45 +2735,59 @@ if(window.visualViewport){
         if(es[0].isIntersecting){fsb.classList.add('lit');o.disconnect();}
       },{rootMargin:'0px 0px -8% 0px'}).observe(fsb);
     }
+    /* GSAP failed to load (not a reduced-motion choice): fall back to
+       native smooth-scroll rather than a hard instant jump */
+    if(typeof gsap==='undefined')document.documentElement.classList.add('no-lenis');
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ── LENIS SMOOTH SCROLL ── */
-  var lenis;
-  try{
-    lenis=new Lenis({
-      duration:1.18,
-      easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));},
-      smooth:true,
-      smoothTouch:false
-    });
-    /* Feed Lenis into GSAP ticker */
-    gsap.ticker.add(function(time){lenis.raf(time*1000);});
-    gsap.ticker.lagSmoothing(0);
-    /* Sync ScrollTrigger with Lenis */
-    lenis.on('scroll',ScrollTrigger.update);
-    /* Keep native onScroll (nav, progress, dots) synced */
-    lenis.on('scroll',function(){if(window.tmOnScroll)window.tmOnScroll();});
-    /* Smooth links */
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      a.addEventListener('click',function(e){
-        var t=document.querySelector(a.getAttribute('href'));
-        if(t){e.preventDefault();lenis.scrollTo(t,{offset:-70,duration:1.4});}
+  /* ── LENIS SMOOTH SCROLL ──
+     Tuned for a light, responsive wheel feel: shorter duration + a
+     snappier cubic-out curve so the site "keeps up" with fast wheel
+     spins instead of trailing behind on a long decelerating tail
+     (that lag was the actual cause of desktop scrolling feeling
+     heavy — see the scroll-behavior:smooth removal above too, which
+     was compounding it). */
+  var lenis=null;
+  if(typeof Lenis!=='undefined'){
+    try{
+      lenis=new Lenis({
+        duration:0.75,
+        easing:function(t){return 1-Math.pow(1-t,3);},
+        smoothWheel:true,
+        wheelMultiplier:1.15,
+        syncTouch:false,
+        smoothTouch:false
       });
-    });
-    /* dots */
-    document.querySelectorAll('.dot').forEach(function(d){
-      d.addEventListener('click',function(){
-        var id=d.getAttribute('aria-label');var s=document.getElementById(id);
-        if(s&&lenis)lenis.scrollTo(s,{offset:-70,duration:1.4});
-      },{capture:true});
-    });
-    /* scroll-to-top */
-    var tt=document.getElementById('toTop');
-    if(tt)tt.addEventListener('click',function(e){e.stopPropagation();if(lenis)lenis.scrollTo(0,{duration:1.2});});
-  }catch(_){lenis=null;}
+      /* Feed Lenis into GSAP ticker */
+      gsap.ticker.add(function(time){lenis.raf(time*1000);});
+      gsap.ticker.lagSmoothing(0);
+      /* Sync ScrollTrigger with Lenis */
+      lenis.on('scroll',ScrollTrigger.update);
+      /* Keep native onScroll (nav, progress, dots) synced */
+      lenis.on('scroll',function(){if(window.tmOnScroll)window.tmOnScroll();});
+      /* Smooth links */
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click',function(e){
+          var t=document.querySelector(a.getAttribute('href'));
+          if(t){e.preventDefault();lenis.scrollTo(t,{offset:-70,duration:1.1});}
+        });
+      });
+      /* dots */
+      document.querySelectorAll('.dot').forEach(function(d){
+        d.addEventListener('click',function(){
+          var id=d.getAttribute('aria-label');var s=document.getElementById(id);
+          if(s&&lenis)lenis.scrollTo(s,{offset:-70,duration:1.1});
+        },{capture:true});
+      });
+      /* scroll-to-top */
+      var tt=document.getElementById('toTop');
+      if(tt)tt.addEventListener('click',function(e){e.stopPropagation();if(lenis)lenis.scrollTo(0,{duration:0.9});});
+    }catch(_){lenis=null;}
+  }
+  if(!lenis)document.documentElement.classList.add('no-lenis'); /* Lenis blocked/failed: native smooth-scroll fallback */
 
   /* ── HERO PARALLAX ── */
   var heroCv=document.getElementById('heroCv');
