@@ -532,6 +532,14 @@ tbody tr:hover{background:rgba(209,0,0,.04)}
   padding:13px 18px;white-space:nowrap;letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}
 .cell{padding:11px 14px}
 .cell-loc{display:none}
+.sched-hint{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:7px 15px;
+  border-radius:999px;font-family:var(--f-stat);font-size:.82rem;letter-spacing:.02em;font-weight:500;
+  color:var(--blood-hi);background:linear-gradient(120deg,rgba(209,0,0,.1),rgba(255,106,44,.06));
+  border:1px solid rgba(255,46,46,.25)}
+.sched-hint-dot{width:7px;height:7px;border-radius:50%;background:var(--blood-hi);
+  box-shadow:0 0 0 0 rgba(255,46,46,.5);animation:hintPulse 1.8s ease-out infinite;flex-shrink:0}
+@keyframes hintPulse{0%{box-shadow:0 0 0 0 rgba(255,46,46,.55)}70%{box-shadow:0 0 0 8px rgba(255,46,46,0)}100%{box-shadow:0 0 0 0 rgba(255,46,46,0)}}
+@media(prefers-reduced-motion:reduce){.sched-hint-dot{animation:none}}
 .chip{position:relative;display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;
   padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.05);color:var(--bone);
   border:1px solid var(--line);overflow:hidden;cursor:pointer;isolation:isolate;
@@ -1428,7 +1436,8 @@ html[lang=en] .win-cap .lh{display:none}
   <div class="wrap">
     <div class="sched-top rev">
       <div class="eyebrow"><span class="lh">שעות פעילות</span><span class="le">Class Hours</span></div>
-      <h2 class="h-title" style="margin-bottom:26px"><span class="lh">לוח <span class="r">זמנים</span></span><span class="le">Weekly <span class="r">Schedule</span></span></h2>
+      <h2 class="h-title" style="margin-bottom:14px"><span class="lh">לוח <span class="r">זמנים</span></span><span class="le">Weekly <span class="r">Schedule</span></span></h2>
+      <div class="sched-hint"><span class="sched-hint-dot"></span><span class="lh">לחצו על כל שיעור — עוברים ישר להרשמה במתנ״ס</span><span class="le">Tap any class — jump straight to sign-up</span></div>
       <div class="tabs" id="tabs">
         <span class="tab-ind" id="tabInd"></span>
         <button class="tab on" data-day="sun"><span class="lh">א׳</span><span class="le">Sun</span></button>
