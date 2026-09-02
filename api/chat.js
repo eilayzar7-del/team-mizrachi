@@ -5,6 +5,9 @@
 //  לעולם לא נחשף בצד הלקוח.
 // ─────────────────────────────────────────────────────────────────
 
+//  המודל נקרא מ-GROQ_MODEL כדי שהחלפת מודל תהיה שינוי בדשבורד ולא דיפלוי.
+const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+
 export default async function handler(req, res) {
   // CORS preflight
   if (req.method === 'OPTIONS') {
@@ -42,7 +45,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: GROQ_MODEL,
         messages,
         max_tokens: 600,
         temperature: 0.7,
