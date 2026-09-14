@@ -1,0 +1,11 @@
+{
+  "name": "team-mizrachi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "verify:analytics": "node scripts/verify-analytics.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
