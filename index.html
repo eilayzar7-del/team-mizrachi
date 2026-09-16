@@ -1186,6 +1186,33 @@ html[lang=en] .win-cap .lh{display:none}
   });
   posthog.register({ site: 'mizrachi' });
 
+  /* Real-time Discord alert via /api/notify (the webhook lives server-side only).
+     Fire-and-forget: never awaited, never preventDefault, whole body in
+     try/catch, so a slow, failing or missing fetch cannot touch the link.
+     Flood guard: one alert per event+position per tab session, marked before
+     sending (a failed send is not retried). In-memory fallback when
+     sessionStorage is unavailable. */
+  var tmAlertSent = {};
+  function tmNotify(event, props){
+    try{
+      var key = 'tmAlert:' + event + ':' + (props.position || '');
+      if(tmAlertSent[key]) return;
+      tmAlertSent[key] = 1;
+      try{ if(sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); }catch(_){}
+      var utm = null, ref = null;
+      try{ utm = new URLSearchParams(location.search).get('utm_source'); }catch(_){}
+      try{ if(document.referrer){ var h = new URL(document.referrer).hostname; if(h && h !== location.hostname) ref = h; } }catch(_){}
+      var cut = function(v){ return v ? String(v).slice(0, 100) : null; };
+      fetch('/api/notify', {
+        method: 'POST',
+        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: 'mizrachi', event: event, position: cut(props.position), number: cut(props.number),
+          result: cut(props.result), utm_source: cut(utm), referrer: cut(ref) })
+      }).catch(function(){});
+    }catch(_){}
+  }
+
   /* One delegated capture-phase listener: covers static anchors and the ones
      built later by innerHTML (discipline cards, schedule chips, quiz result,
      chat links, booking card). Position comes from data-pos, never data-wa
@@ -1201,6 +1228,9 @@ html[lang=en] .win-cap .lh{display:none}
       number: numMatch ? numMatch[1] : null,
       method: 'link'
     });
+    /* The number decides whose lead it is: Ilay's = signature, anything else = academy. */
+    var waNum = numMatch ? numMatch[1] : null;
+    tmNotify(waNum === '972556648938' ? 'signature_click' : 'whatsapp_click', { position: a.getAttribute('data-pos') || null, number: waNum });
   }, true);
 </script>
 
@@ -2231,6 +2261,7 @@ function showAnalyzing(){
 function showResult(){
   var r=recommend(fState.who,fState.goal,fState.exp,fState.timing);
   fStarted=false;if(window.posthog)window.posthog.capture('quiz_complete',{result:r.cls});
+  if(window.tmNotify)window.tmNotify('quiz_complete',{result:r.cls});
   var en=document.documentElement.lang==='en';
   var expLbl={beginner:en?'complete beginner':'מתחיל/ה לגמרי',some:en?'some experience':'עם קצת ניסיון',advanced:en?'advanced':'מתקדם/ת',return:en?'returning after a break':'חוזר/ת אחרי הפסקה'}[fState.exp]||'';
   var timeLbl={now:en?'this week':'השבוע',soon:en?'in the next 2 weeks':'בשבועיים הקרובים',month:en?'within a month':'תוך חודש',exploring:en?'just exploring':'רק בודק/ת'}[fState.timing]||'';
