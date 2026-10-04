@@ -1056,7 +1056,7 @@ html[lang=en] .ctx-item:hover{transform:translateX(3px)}
 .wins-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:14px}
 .wins-sub{max-width:560px;color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.8;margin:14px 0 34px}
 .wins-sub b{color:var(--gold-hi);font-weight:500}
-.wins-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:stretch}
+.wins-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;align-items:stretch}
 .win-card{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;
   border:1px solid var(--line);background:#0a0a0c;
   box-shadow:0 24px 60px -28px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.02);
@@ -1101,8 +1101,8 @@ html[lang=en] .win-cap .lh{display:none}
 .win-play:hover i{transform:scale(1.1)}
 .win-play.off{opacity:0;pointer-events:none}
 .wins-foot{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
-@media(max-width:1080px){.wins-grid{grid-template-columns:repeat(3,1fr)}.win-card.gold{grid-column:span 2}}
-@media(max-width:740px){.wins-grid{grid-template-columns:1fr 1fr}.win-card.gold{grid-column:span 2}.win-card.gold .win-media{aspect-ratio:4/5}}
+@media(max-width:1080px){.wins-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:740px){.wins-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.wins-grid{grid-template-columns:1fr}.win-card.gold{grid-column:auto}.win-media{aspect-ratio:9/13}.win-card.gold .win-media{aspect-ratio:3/4}}
 
 /* ══ CREATOR BAND ══ */
@@ -1451,6 +1451,15 @@ html[lang=en] .win-cap .lh{display:none}
           <img src="media/champ-podium.jpg" alt="לוחם Team Mizrachi על פודיום מקום ראשון באליפות ישראל NO-GI, עם המאמן" loading="lazy">
           <span class="win-tag">🥇 <span class="lh">מקום 1</span><span class="le">1st Place</span></span>
           <figcaption class="win-cap"><b><span class="lh">אלוף ישראל NO-GI</span><span class="le">Israel NO-GI Champion</span></b><span><span class="lh">הפודיום שלנו — והמאמן שמאחורי זה</span><span class="le">Our podium — and the coach behind it</span></span></figcaption>
+        </div>
+      </figure>
+      <figure class="win-card rev d1">
+        <div class="win-media">
+          <video src="media/win-cage.mp4" poster="media/win-cage.jpg" muted loop playsinline preload="none"></video>
+          <span class="win-tag red"><span class="lh">מהכלוב</span><span class="le">From the Cage</span></span>
+          <button class="win-play" aria-label="נגן וידאו"><i><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i></button>
+          <button class="win-snd" aria-label="הפעל/כבה סאונד"><svg class="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+          <figcaption class="win-cap"><b><span class="lh">קרב בכלוב</span><span class="le">Inside the cage</span></b><span><span class="lh">הלוחם שלנו, רגע אמיתי מהתחרות</span><span class="le">Our fighter, a real moment from competition</span></span></figcaption>
         </div>
       </figure>
       <figure class="win-card rev d1">
