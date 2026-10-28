@@ -220,25 +220,39 @@ ov.addEventListener('click',toggle);
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('open'))toggle()});
 
 /* ── teaser ── */
-function hideTeaser(){if(teaser){teaser.classList.remove('show')}}
-el('tmcTeaserX').addEventListener('click',function(e){e.stopPropagation();hideTeaser();try{sessionStorage.setItem('tmcTeaser','1')}catch(_){}});
+/* Shown once per session, only after the visitor is halfway down the page, for ~6s,
+   then taken out of the DOM so it can never sit over a headline or a button again. */
+function removeTeaser(){
+  if(!teaser)return;var t=teaser;teaser=null;
+  t.classList.remove('show');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},450);
+}
+function hideTeaser(){removeTeaser()}
+el('tmcTeaserX').addEventListener('click',function(e){e.stopPropagation();removeTeaser();});
 teaser.addEventListener('click',toggle);
-/* desktop: after 4.2s. Phones: only once the visitor has scrolled past the hero,
-   so the toast never sits on top of the hero content */
 (function(){
-  var shown=false,timeUp=false;
-  var mobile=window.matchMedia('(max-width:760px)').matches;
-  var hero=document.getElementById('hero');
-  function pastHero(){return !mobile||!hero||window.scrollY>hero.offsetHeight*.9}
-  function tryShow(){
-    if(shown||!timeUp||!pastHero())return;
-    shown=true;window.removeEventListener('scroll',tryShow);
-    var seen;try{seen=sessionStorage.getItem('tmcTeaser')}catch(_){}
-    if(!seen&&!panel.classList.contains('open'))teaser.classList.add('show');
-    setTimeout(hideTeaser,9000);
+  var done=false;
+  try{if(sessionStorage.getItem('tmcTeaser')){done=true;removeTeaser();return;}}catch(_){}
+  function half(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    return max>0&&window.scrollY/max>=.5;
   }
-  setTimeout(function(){timeUp=true;tryShow();},4200);
-  if(mobile)window.addEventListener('scroll',tryShow,{passive:true});
+  /* never over the schedule pills or the footer: wait while they sit in the lower part of the screen */
+  var keepClear=[document.getElementById('schedBoard'),document.querySelector('footer')].filter(Boolean);
+  function blocked(){
+    var h=window.innerHeight;
+    return keepClear.some(function(n){var r=n.getBoundingClientRect();return r.top<h&&r.bottom>h*.45;});
+  }
+  function watch(){if(teaser&&blocked())removeTeaser();if(!teaser)window.removeEventListener('scroll',watch);}
+  function tryShow(){
+    if(done||!teaser||!half()||blocked())return;
+    done=true;window.removeEventListener('scroll',tryShow);
+    try{sessionStorage.setItem('tmcTeaser','1')}catch(_){}
+    if(panel.classList.contains('open')){removeTeaser();return;}
+    teaser.classList.add('show');
+    window.addEventListener('scroll',watch,{passive:true});
+    setTimeout(removeTeaser,6000);
+  }
+  window.addEventListener('scroll',tryShow,{passive:true});
 })();
 
 /* ── message bubbles ── */

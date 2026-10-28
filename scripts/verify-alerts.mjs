@@ -473,7 +473,6 @@ console.log('\n--- C. signature_click vs whatsapp_click from the same listener -
   const m0 = notifyLog.length;
   const settle = () => page.waitForTimeout(1200);
   await press(page, 'nav#nav a.ncta'); await settle();
-  await press(page, 'footer a.cb-cta'); await settle();
   await press(page, 'footer a.credit'); await settle();
   await page.locator('#tmcFab').click();
   await page.waitForSelector('#tmcPanel.open', { timeout: 5000 });
@@ -488,14 +487,13 @@ console.log('\n--- C. signature_click vs whatsapp_click from the same listener -
 
   const expected = [
     ['nav', 'whatsapp_click', ACADEMY],
-    ['creator-band', 'signature_click', ILAY],
     ['credit', 'signature_click', ILAY],
     ['chat-credit', 'signature_click', ILAY],
     ['chat-message', 'signature_click', ILAY],
     ['chat-message', 'whatsapp_click', ACADEMY],
   ];
   const got = since(m0, 'C');
-  check(`C six distinct touchpoints → six POSTs (got ${got.length})`, got.length === 6);
+  check(`C five distinct touchpoints → five POSTs (got ${got.length})`, got.length === 5);
   expected.forEach(([pos, ev, num], i) => {
     const g = got[i]?.body;
     check(`C${i + 1} ${pos} → event=${ev}, number=${num}, handler 200`,
@@ -507,13 +505,13 @@ console.log('\n--- C. signature_click vs whatsapp_click from the same listener -
   const sig = got.filter(x => x.body?.event === 'signature_click');
   const aca = got.filter(x => x.body?.event === 'whatsapp_click');
   check('C Discord text: every signature message has the signature title and never the academy title',
-    sig.length === 4 && sig.every(x => x.content?.includes(SIGNATURE_TITLE) && !x.content.includes(ACADEMY_TITLE)));
+    sig.length === 3 && sig.every(x => x.content?.includes(SIGNATURE_TITLE) && !x.content.includes(ACADEMY_TITLE)));
   check('C Discord text: every academy message has the academy title and never the signature title',
     aca.length === 2 && aca.every(x => x.content?.includes(ACADEMY_TITLE) && !x.content.includes(SIGNATURE_TITLE)));
-  await waitFor(() => phEvents.filter(x => x.tag === 'C' && x.event === 'whatsapp_click').length >= 6 && true, 12000);
+  await waitFor(() => phEvents.filter(x => x.tag === 'C' && x.event === 'whatsapp_click').length >= 5 && true, 12000);
   const phC = phEvents.filter(x => x.tag === 'C' && x.event === 'whatsapp_click');
-  check('C PostHog whatsapp_click (unchanged event name) fired for all 6 with matching position+number',
-    phC.length === 6 && expected.every(([pos, , num], i) => phC[i]?.properties?.position === pos && phC[i]?.properties?.number === num));
+  check('C PostHog whatsapp_click (unchanged event name) fired for all 5 with matching position+number',
+    phC.length === 5 && expected.every(([pos, , num], i) => phC[i]?.properties?.position === pos && phC[i]?.properties?.number === num));
   await ctx.close();
 }
 

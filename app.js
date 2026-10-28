@@ -167,7 +167,7 @@ var DAYS={
 (function(){
   var g=$('#discGrid');var h='';
   DISCIPLINES.forEach(function(d,i){
-    h+='<a class="disc-card tappable" data-tilt data-pos="disc-card-'+(i+1)+'" href="'+wa(d.msg)+'" target="_blank" rel="noopener" data-n="'+('0'+(i+1)).slice(-2)+'">'+
+    h+='<a class="disc-card tappable" data-tilt data-pos="disc-card-'+(i+1)+'" href="'+wa(d.msg)+'" target="_blank" rel="noopener">'+
        '<span class="disc-ic">'+svg(d.ic,26)+'</span>'+
        '<span class="disc-go"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></span>'+
        '<span class="disc-name lat">'+d.n+'</span>'+
@@ -205,11 +205,12 @@ var DAY_NAMES_EN={sun:'Sunday',mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'T
   Object.keys(DAYS).forEach(function(d,i){
     var dayName=DAY_NAMES[d];
     h+='<div class="day'+(i===0?' on':'')+'" data-day="'+d+'" role="tabpanel" aria-label="'+dayName+'"><table role="table"><caption class="sr-only">'+L2('לוח זמנים — '+dayName,'Schedule — '+DAY_NAMES_EN[d])+'</caption><thead><tr role="row">'+
-       '<th scope="col" role="columnheader"><span class="lh">שעה</span><span class="le">Time</span></th><th scope="col" role="columnheader"><span class="loc green">📍 <span class="lh">הירוק</span><span class="le">HaYarok</span></span></th><th scope="col" role="columnheader"><span class="loc blue">📍 CENTER</span></th></tr></thead><tbody>';
+       '<th scope="col" role="columnheader"><span class="lh">שעה</span><span class="le">Time</span></th><th scope="col" role="columnheader"><span class="loc green"><i></i><span class="lh">מתחם הירוק</span><span class="le">HaYarok Site</span></span></th><th scope="col" role="columnheader"><span class="loc blue"><i></i><span class="lh">מתחם CENTER</span><span class="le">CENTER Site</span></span></th></tr></thead><tbody>';
     DAYS[d].forEach(function(r){
-      h+='<tr role="row"><td class="th-time" role="cell"><bdi>'+r[0]+'</bdi></td>'+
-         '<td class="cell" role="cell"><span class="cell-loc">📍 <span class="lh">הירוק</span><span class="le">Green</span></span>'+chip(r[1],'sched-'+d+'-hayarok')+'</td>'+
-         '<td class="cell" role="cell"><span class="cell-loc">📍 CENTER</span>'+chip(r[2],'sched-'+d+'-center')+'</td></tr>';
+      /* hg/hc: the row has a class at HaYarok / CENTER (phones show one location at a time, no empty slots) */
+      h+='<tr role="row" class="'+(r[1]?'hg':'')+(r[2]?' hc':'')+'"><td class="th-time" role="cell"><bdi>'+r[0].trim()+'</bdi></td>'+
+         '<td class="cell g" role="cell">'+chip(r[1],'sched-'+d+'-hayarok')+'</td>'+
+         '<td class="cell c" role="cell">'+chip(r[2],'sched-'+d+'-center')+'</td></tr>';
     });
     h+='</tbody></table></div>';
   });
@@ -273,7 +274,7 @@ var DAY_NAMES_EN={sun:'Sunday',mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'T
 
 /* ── BOOT after loader ── */
 function boot(){
-  initReveal();initHero();initTape();initBand();
+  initReveal();initHero();initTape();
   setTimeout(function(){$('#wipe').style.display='none';},800);
 }
 
@@ -387,15 +388,6 @@ function initTape(){
     $$('.tape-n[data-c]').forEach(count);
   },{threshold:.4}).observe(tape);
 }
-function initBand(){
-  var band=$('#band');if(!band)return;
-  new IntersectionObserver(function(es,o){
-    if(!es[0].isIntersecting)return;o.disconnect();
-    $$('.band-c').forEach(function(c,i){setTimeout(function(){
-      c.classList.add('seen');var n=$('.band-n[data-c]',c);if(n)count(n);
-    },i*120);});
-  },{threshold:.4}).observe(band);
-}
 
 /* ── SCROLL: progress, nav, dots, toTop ── */
 var nav=$('#nav'),prog=$('#prog'),toTop=$('#toTop');
@@ -468,6 +460,18 @@ $$('.tab',tabs).forEach(function(btn){
     $$('.day').forEach(function(d){d.classList.toggle('on',d.getAttribute('data-day')===day)});
   });
 });
+/* ── SCHEDULE location toggle (phones): one location at a time ── */
+(function(){
+  var wrap=$('#locToggle'),board=$('#schedBoard');if(!wrap||!board)return;
+  function setLoc(l){
+    board.setAttribute('data-loc',l);
+    $$('.loc-btn',wrap).forEach(function(b){var on=b.getAttribute('data-loc')===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');});
+    try{localStorage.setItem('tmLoc',l)}catch(_){}
+  }
+  var saved;try{saved=localStorage.getItem('tmLoc')}catch(_){}
+  if(saved==='g'||saved==='c')setLoc(saved);
+  $$('.loc-btn',wrap).forEach(function(b){b.addEventListener('click',function(){setLoc(b.getAttribute('data-loc'))});});
+})();
 window.addEventListener('load',function(){moveInd($('.tab.on'))});
 window.addEventListener('resize',function(){moveInd($('.tab.on'))});
 setTimeout(function(){moveInd($('.tab.on'))},400);
@@ -688,10 +692,12 @@ if(!touch&&!reduce){
 if(!touch&&!reduce&&window.matchMedia('(min-width:901px)').matches){
   document.body.classList.add('cur-on');
   var cur=$('#cur'),dot=$('#curDot');
-  var cx=innerWidth/2,cy=innerHeight/2,dx=cx,dy=cy;
+  var cx=-100,cy=-100,dx=cx,dy=cy,live=false;
   document.addEventListener('mousemove',function(e){cx=e.clientX;cy=e.clientY;
+    if(!live){live=true;dx=cx;dy=cy;document.body.classList.add('cur-live');}
     dot.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';
   },{passive:true});
+  document.documentElement.addEventListener('mouseleave',function(){live=false;document.body.classList.remove('cur-live');});
   (function ring(){dx+=(cx-dx)*.18;dy+=(cy-dy)*.18;
     cur.style.transform='translate('+dx+'px,'+dy+'px) translate(-50%,-50%)';
     requestAnimationFrame(ring);})();
@@ -988,12 +994,6 @@ $('#yr').textContent=new Date().getFullYear();
   gsap.to('.hero-in',{yPercent:-10,opacity:.4,ease:'none',
     scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
 
-  /* ── BAND: numbers drift against the scroll (subtle parallax) ── */
-  if(!touch){
-    gsap.fromTo('#band .band-grid',{y:18},{y:-18,ease:'none',
-      scrollTrigger:{trigger:'#band',start:'top bottom',end:'bottom top',scrub:true}});
-  }
-
   /* ── SHOW PHOTO PARALLAX ── */
   var showImg=document.querySelector('.show-photo img');
   if(showImg){
@@ -1035,12 +1035,6 @@ $('#yr').textContent=new Date().getFullYear();
     ScrollTrigger.create({trigger:'#finder',start:'top 85%',once:true,
       onEnter:function(){fshell.classList.add('lit')}});
   }
-
-  /* ── BAND STATS: one restrained reveal ── */
-  gsap.from('.band-c',{
-    y:24,opacity:0,duration:0.7,ease:'power3.out',stagger:0.08,
-    scrollTrigger:{trigger:'#band',start:'top 88%',once:true}
-  });
 
   /* ── FOOTER ── */
   gsap.from('.foot-top > *',{

@@ -193,7 +193,6 @@ await hit(page, '#cta a[data-wa]', 'final CTA section', { ...D, expectPos: 'cta'
 await hit(page, 'footer .foot-socials a[data-wa]', 'footer WhatsApp icon', { ...D, expectPos: 'footer', expectNum: ACADEMY });
 await hit(page, '.dock a.fab.wa', 'floating dock button', { ...D, expectPos: 'floating', expectNum: ACADEMY });
 // --- static literal hrefs ---
-await hit(page, 'footer a.cb-cta', 'creator band CTA', { ...D, expectPos: 'creator-band', expectNum: ILAY });
 await hit(page, 'footer a.credit', 'footer credit', { ...D, expectPos: 'credit', expectNum: ILAY });
 // --- context menu (right-click) ---
 {
@@ -319,7 +318,8 @@ await mpage.waitForTimeout(2500);
 const M = { pass: 'mobile', tap: true };
 
 await hit(mpage, '#hero a[data-wa="join"]', 'hero CTA', { ...M, expectPos: 'hero', expectNum: ACADEMY });
-await hit(mpage, '.dock a.fab.wa', 'floating dock button', { ...M, expectPos: 'floating', expectNum: ACADEMY });
+// phones keep one floating button (the chat); the bar's compact trial pill is the always-visible WhatsApp CTA
+await hit(mpage, 'nav#nav a.ncta', 'mobile bar CTA', { ...M, expectPos: 'nav', expectNum: ACADEMY });
 await hit(mpage, '#discGrid a.disc-card', 'discipline card 1', { ...M, nth: 0, expectPos: 'disc-card-1', expectNum: ACADEMY });
 await hit(mpage, '#schedBody .day.on a.chip[href*="wa.me"]', 'schedule sun private (HaYarok)', { ...M, nth: 0, expectPos: 'sched-sun-hayarok', expectNum: ACADEMY });
 await hit(mpage, '#cta a[data-wa]', 'final CTA section', { ...M, expectPos: 'cta', expectNum: ACADEMY });
@@ -392,13 +392,14 @@ for (const r of results) {
     check(`${tag}: number non-null and === ${r.expectNum}`, r.props?.number != null && r.props.number === r.expectNum);
   }
 }
-// 36 WhatsApp anchors exist: 12 static data-wa + 4 static literal hrefs +
+// 35 WhatsApp anchors exist: 12 static data-wa + 3 static literal hrefs +
 // 16 innerHTML-built on load + 4 runtime-only (quiz result, chat error link,
 // chat AI-reply link, booking card). mnav is only rendered at <=760px, so it
-// is covered by the mobile pass; the other 35 by the desktop pass.
+// is covered by the mobile pass; the other 34 by the desktop pass. The mobile
+// pass also taps the bar's trial pill (same anchor as the nav CTA) = 36 labels.
 const uniqueDesktop = new Set(results.filter(r => r.pass === 'desktop').map(r => r.label));
 const uniqueAll = new Set(results.map(r => r.label));
-check(`desktop pass covered ${uniqueDesktop.size} distinct touchpoints (expected 35)`, uniqueDesktop.size === 35);
+check(`desktop pass covered ${uniqueDesktop.size} distinct touchpoints (expected 34)`, uniqueDesktop.size === 34);
 check(`both passes together covered ${uniqueAll.size} distinct touchpoints (expected 36)`, uniqueAll.size === 36);
 
 const count = (evs, name) => evs.filter(e => e.event === name).length;

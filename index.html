@@ -150,9 +150,20 @@
   <canvas id="heroCv"></canvas>
   <div class="hero-mesh"></div>
   <div class="hero-vig"></div>
+  <!-- camp registration badge: lives inside the hero only, scrolls away with it -->
+  <div class="camp-badge" id="campBadge">
+    <button class="camp-badge-x" id="campBadgeX" aria-label="סגור">✕</button>
+    <a class="camp-badge-link tappable" data-reg="camp" target="_blank" rel="noopener">
+      <span class="camp-badge-ic" aria-hidden="true">🏕️</span>
+      <span class="camp-badge-txt">
+        <b><span class="lh">הרשמה לחוגים</span><span class="le">Class Registration</span></b>
+        <span><span class="lh"><bdi>349 ₪</bdi> · ההרשמה פתוחה — לחצו כאן</span><span class="le"><bdi>349 ₪</bdi> · Registration open — tap here</span></span>
+      </span>
+    </a>
+  </div>
   <div class="hero-in">
     <div class="crest"><img src="media/logo.webp" width="262" height="262" fetchpriority="high" alt="Team Mizrachi"></div>
-    <div class="hero-eye"><span class="lh">גבעת שמואל <b>·</b> CENTER הירוק</span><span class="le">Givat Shmuel <b>·</b> CENTER · HaYarok</span></div>
+    <div class="hero-eye"><span class="lh"><bdi>גבעת שמואל</bdi> <b>·</b> <bdi>מתחם הירוק</bdi> <b>·</b> <bdi>מתחם CENTER</bdi></span><span class="le">Givat Shmuel <b>·</b> HaYarok <b>·</b> CENTER</span></div>
     <h1 class="mega"><span class="ln"><span>TEAM</span></span><span class="ln"><span class="r">MIZRACHI</span></span></h1>
     <p class="hero-sub"><span class="lh">אקדמיה לאומנויות לחימה. מגיל <b>4</b> ועד בוגרים — כל הרמות, כל הסגנונות, תחת קורת גג אחת. כאן לא רק מתאמנים. <b>בונים אופי.</b></span><span class="le">A martial arts academy. Ages <b>4</b> to adults — every level, every style, one roof. Here we don't just train. <b>We build character.</b></span></p>
     <div class="hero-cta">
@@ -161,7 +172,7 @@
         <span class="lh">שיעור ניסיון חינם</span><span class="le">Free Trial Class</span>
       </a>
       <a class="btn btn-lg btn-ghost tappable" href="#finder"><span class="lh">מצא את הסגנון שלך ↓</span><span class="le">Find Your Style ↓</span></a>
-      <a class="btn btn-lg btn-gold tappable" id="heroAllClasses" href="#register">
+      <a class="btn btn-lg btn-ghost tappable" id="heroAllClasses" href="#register">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
         <span class="lh">כל החוגים וההרשמה</span><span class="le">All Classes & Sign-Up</span>
       </a>
@@ -192,17 +203,18 @@
   <div class="promo-glow"></div>
   <div class="wrap promo-grid">
     <div class="promo-text rev">
-      <div class="eyebrow"><span class="lh">ראה אותנו בפעולה</span><span class="le">See Us In Action</span></div>
       <h2 class="h-title"><span class="lh">זה לא סרטון.<br><span class="r">זו הזמנה.</span></span><span class="le">Not a clip.<br><span class="r">An invitation.</span></span></h2>
       <p class="promo-p"><span class="lh">המצלמה לא משקרת. הריל הזה צולם אצלנו, באימון אמיתי — בלי פילטרים, בלי משחקים. ככה נראית אנרגיה אמיתית.</span><span class="le">The camera doesn't lie. This reel was shot here, in a real session — no filters, no acting. This is what real energy looks like.</span></p>
       <div class="promo-stats">
         <div class="ps"><b>100%</b><span><span class="lh">צילום אמיתי</span><span class="le">Real footage</span></span></div>
         <div class="ps"><b><bdi>@teammizrachimma</bdi></b><span><span class="lh">עקבו אחרינו</span><span class="le">Follow us</span></span></div>
       </div>
-      <div class="show-social">
+      <div class="promo-actions">
         <a class="btn btn-md btn-fill tappable" data-wa="join" data-pos="promo" target="_blank" rel="noopener"><span class="sweep"></span><span class="lh">שיעור ניסיון חינם</span><span class="le">Free Trial Class</span></a>
-        <a class="btn btn-md btn-ghost tappable" href="https://www.instagram.com/reel/DJ6lN1_NdCH/" target="_blank" rel="noopener"><span class="lh">▶ צפה באינסטגרם</span><span class="le">▶ Watch on Instagram</span></a>
-        <a class="btn btn-md btn-gold tappable" data-reg="camp" target="_blank" rel="noopener"><span class="lh">🔥 הרשמה פתוחה — <bdi>349 ₪</bdi></span><span class="le">🔥 Registration open — <bdi>349 ₪</bdi></span></a>
+        <div class="tlinks">
+          <a class="tlink tappable" href="https://www.instagram.com/reel/DJ6lN1_NdCH/" target="_blank" rel="noopener"><span class="lh">▶ צפה באינסטגרם</span><span class="le">▶ Watch on Instagram</span></a>
+          <a class="tlink tappable" data-reg="camp" target="_blank" rel="noopener"><span class="lh">הרשמה פתוחה — <bdi>349 ₪</bdi></span><span class="le">Registration open — <bdi>349 ₪</bdi></span></a>
+        </div>
       </div>
     </div>
     <div class="promo-media rev d2">
@@ -242,16 +254,6 @@
 
 <div class="slash"></div>
 
-<!-- ════ STATS BAND ════ -->
-<section id="band">
-  <div class="band-grid">
-    <div class="band-c"><div class="band-n" data-c="15" data-suf="+">15<b>+</b></div><div class="band-l"><span class="lh">שנות ניסיון</span><span class="le">Yrs Experience</span></div></div>
-    <div class="band-c"><div class="band-n" data-c="7">7</div><div class="band-l"><span class="lh">מאמנים מוסמכים</span><span class="le">Certified Coaches</span></div></div>
-    <div class="band-c"><div class="band-n" data-c="6">6</div><div class="band-l"><span class="lh">תחומי לחימה</span><span class="le">Disciplines</span></div></div>
-    <div class="band-c"><div class="band-n">∞</div><div class="band-l"><span class="lh">אין גבול לפוטנציאל</span><span class="le">No Limit To Potential</span></div></div>
-  </div>
-</section>
-
 <!-- ════ SHOWCASE ════ -->
 <section id="show">
   <div class="wrap show-grid">
@@ -260,7 +262,6 @@
       <div class="show-tag"><i></i><span class="lh">בתוך המכון</span><span class="le">Inside the Gym</span></div>
     </div>
     <div class="show-text rev d2">
-      <div class="eyebrow"><span class="lh">המתחם שלנו</span><span class="le">Our Home Base</span></div>
       <h2 class="h-title"><span class="lh">המקום שבו <span class="r">זה קורה</span></span><span class="le">Where It <span class="r">Happens</span></span></h2>
       <p><span class="lh">מה שמדברים זה לא מה שחשוב — מה שרואים זה מה שחשוב. <b>כלוב מלא, מזרנים מקצועיים, אנרגיה אמיתית.</b> הצץ לתוך האימונים, האווירה והאנשים שמרכיבים את Team Mizrachi.</span><span class="le">Talk is cheap — what you see is what counts. <b>Pro cage, professional mats, real energy.</b> Step inside the training, the atmosphere and the people of Team Mizrachi.</span></p>
       <div class="show-social">
@@ -276,7 +277,6 @@
   <div class="wrap">
     <div class="disc-head">
       <div class="rev">
-        <div class="eyebrow"><span class="lh">מה אנחנו מלמדים</span><span class="le">What We Teach</span></div>
         <h2 class="h-title"><span class="lh">6 תחומי <span class="r">לחימה</span></span><span class="le">6 Fighting <span class="r">Disciplines</span></span></h2>
       </div>
       <a class="btn btn-md btn-ghost tappable rev d2" data-wa="join" data-pos="disc-head" target="_blank" rel="noopener"><span class="lh">דבר עם מאמן →</span><span class="le">Talk to a Coach →</span></a>
@@ -292,7 +292,6 @@
   <div class="wrap">
     <div class="coach-head">
       <div class="rev">
-        <div class="eyebrow"><span class="lh">הצוות שלנו</span><span class="le">Our Team</span></div>
         <h2 class="h-title"><span class="lh">ה<span class="r">מאמנים</span></span><span class="le">The <span class="r">Coaches</span></span></h2>
       </div>
       <a class="btn btn-md btn-ghost tappable rev d2" data-wa="coach" data-pos="coaches-head" target="_blank" rel="noopener"><span class="lh">דבר עם מאמן →</span><span class="le">Talk to a Coach →</span></a>
@@ -308,7 +307,6 @@
   <div class="wrap">
     <div class="wins-head">
       <div class="rev">
-        <div class="eyebrow"><span class="lh">תוצאות. לא דיבורים.</span><span class="le">Results. Not Talk.</span></div>
         <h2 class="h-title"><span class="lh">קיר <span class="r">הניצחונות</span></span><span class="le">Wall of <span class="r">Wins</span></span></h2>
       </div>
       <a class="btn btn-md btn-ghost tappable rev d2" data-wa="join" data-pos="wins-head" target="_blank" rel="noopener"><span class="lh">רוצה לעמוד שם? →</span><span class="le">Want to stand there? →</span></a>
@@ -369,7 +367,7 @@
       </figure>
     </div>
     <div class="wins-foot rev d2">
-      <a class="btn btn-lg btn-gold tappable" data-wa="join" data-pos="wins-foot" target="_blank" rel="noopener"><span class="lh">🥇 הניצחון הבא יכול להיות שלך</span><span class="le">🥇 The next win can be yours</span></a>
+      <a class="btn btn-lg btn-fill tappable" data-wa="join" data-pos="wins-foot" target="_blank" rel="noopener"><span class="sweep"></span><span class="lh">🥇 הניצחון הבא יכול להיות שלך</span><span class="le">🥇 The next win can be yours</span></a>
     </div>
   </div>
 </section>
@@ -378,7 +376,6 @@
 <section id="sched">
   <div class="wrap">
     <div class="sched-top rev">
-      <div class="eyebrow"><span class="lh">שעות פעילות</span><span class="le">Class Hours</span></div>
       <h2 class="h-title" style="margin-bottom:14px"><span class="lh">לוח <span class="r">זמנים</span></span><span class="le">Weekly <span class="r">Schedule</span></span></h2>
       <div class="sched-hint"><span class="sched-hint-dot"></span><span class="lh">לחצו על כל שיעור — עוברים ישר להרשמה במתנ״ס</span><span class="le">Tap any class — jump straight to sign-up</span></div>
       <div class="tabs" id="tabs" role="tablist" aria-label="ימי השבוע">
@@ -391,13 +388,14 @@
         <button class="tab" data-day="fri" role="tab" aria-selected="false"><span class="lh">ו׳</span><span class="le">Fri</span></button>
         <button class="tab" data-day="sat" role="tab" aria-selected="false"><span class="lh">ש׳</span><span class="le">Sat</span></button>
       </div>
+      <!-- phones: one location at a time -->
+      <div class="loc-toggle" id="locToggle" role="group" aria-label="מתחם">
+        <button type="button" class="loc-btn g on" data-loc="g" aria-pressed="true"><i></i><span class="lh">מתחם הירוק</span><span class="le">HaYarok Site</span></button>
+        <button type="button" class="loc-btn c" data-loc="c" aria-pressed="false"><i></i><span class="lh">מתחם CENTER</span><span class="le">CENTER Site</span></button>
+      </div>
     </div>
-    <div class="sched-board rev d2">
+    <div class="sched-board rev d2" id="schedBoard" data-loc="g">
       <div class="sched-scroll" id="schedBody"><!-- JS renders --></div>
-    </div>
-    <div class="sched-foot rev d3">
-      <span><i style="background:#5ce08c"></i><span class="lh">מתחם הירוק</span><span class="le">HaYarok Site</span></span>
-      <span><i style="background:#6aa6ff"></i><span class="lh">מתחם CENTER</span><span class="le">CENTER Site</span></span>
     </div>
   </div>
 </section>
@@ -407,7 +405,6 @@
   <div class="wrap">
     <div class="disc-head">
       <div class="rev">
-        <div class="eyebrow"><span class="lh">ההרשמה הרשמית</span><span class="le">Official Sign-Up</span></div>
         <h2 class="h-title"><span class="lh">הרשמה <span class="r">לחוגים</span></span><span class="le">Class <span class="r">Registration</span></span></h2>
       </div>
     </div>
@@ -491,16 +488,15 @@
 <section id="cta">
   <div class="cta-word lat" aria-hidden="true">FIGHT</div>
   <div class="wrap cta-in">
-    <div class="eyebrow center rev"><span class="lh">הצטרף עכשיו</span><span class="le">Join Now</span></div>
     <h2 class="cta-title rev d1"><span class="lh">מוכן להתחיל?</span><span class="le">Ready to Start?</span><br><span class="lh"><span class="r">הגיע הזמן.</span></span><span class="le"><span class="r">It's Time.</span></span></h2>
     <p class="cta-sub rev d2"><span class="lh">שיעור ניסיון ראשון <b>בחינם</b> — ללא התחייבות, ללא לחץ. בוא תרגיש את המקום, את האנרגיה ואת הצוות בעצמך.</span><span class="le">Your first trial class is <b>free</b> — no commitment, no pressure. Come feel the place, the energy and the team for yourself.</span></p>
     <div class="hero-cta rev d3" style="margin-top:0">
-      <a class="btn btn-lg btn-wa tappable" data-wa="join" data-pos="cta" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <a class="btn btn-lg btn-fill tappable" data-wa="join" data-pos="cta" target="_blank" rel="noopener"><span class="sweep"></span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         <span class="lh">שלח הודעה בוואטסאפ</span><span class="le">Message on WhatsApp</span>
       </a>
-      <a class="btn btn-lg btn-gold tappable" data-reg="camp" target="_blank" rel="noopener">
-        <span class="lh">🔥 הרשמה פתוחה — <bdi>349 ₪</bdi></span><span class="le">🔥 Registration open — <bdi>349 ₪</bdi></span>
+      <a class="btn btn-lg btn-ghost tappable" data-reg="camp" target="_blank" rel="noopener">
+        <span class="lh">הרשמה פתוחה — <bdi>349 ₪</bdi></span><span class="le">Registration open — <bdi>349 ₪</bdi></span>
       </a>
     </div>
     <p class="cta-note rev d4"><span class="lh">יום שישי — שיעורים פתוחים <b>ללא עלות</b> · בוא להתנסות</span><span class="le">Friday — open classes at <b>no cost</b> · come try it</span></p>
@@ -515,7 +511,7 @@
         <img src="media/logo.webp" width="262" height="262" alt="Team Mizrachi" loading="lazy">
         <div>
           <div class="fb-t">TEAM <b>MIZRACHI</b></div>
-          <div class="fb-s"><span class="lh">גבעת שמואל — מתחם הירוק · מתחם CENTER</span><span class="le">Givat Shmuel — HaYarok · CENTER</span></div>
+          <div class="fb-s"><span class="lh"><bdi>מתחם הירוק</bdi> · <bdi>מתחם CENTER</bdi></span><span class="le">HaYarok Site · CENTER Site</span></div>
         </div>
       </div>
       <div class="foot-socials">
@@ -526,34 +522,12 @@
       </div>
     </div>
     <div class="foot-div"></div>
-    <div class="creator-band">
-      <div class="cb-left">
-        <div class="cb-badge">&lt;/&gt;</div>
-        <div class="cb-info">
-          <div class="cb-title"><span class="lh">עוצב ופותח ע״י עילי זר</span><span class="le">Designed &amp; built by Ilay Zar</span></div>
-          <div class="cb-sub"><span class="lh">אתרים וצ׳אטבוטים מבוססי AI שממירים גולשים ללקוחות</span><span class="le">AI-powered websites &amp; chatbots that turn visitors into clients</span></div>
-        </div>
-      </div>
-      <a class="cb-cta tappable" data-pos="creator-band" href="https://wa.me/972556648938?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%9C%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Team%20Mizrachi%20%D7%95%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%90%D7%AA%D7%A8%20%D7%91%D7%A8%D7%9E%D7%94%20%D7%9B%D7%96%D7%95%21" target="_blank" rel="noopener"><span class="lh">רוצה אתר כזה? דבר איתי ←</span><span class="le">Want a site like this? Let's talk →</span></a>
-    </div>
     <div class="foot-bot">
       <span class="foot-copy">© <span id="yr">2026</span> Team Mizrachi MMA Gym · <span class="lh">גבעת שמואל</span><span class="le">Givat Shmuel</span></span>
-      <a class="credit tappable" data-pos="credit" href="https://wa.me/972556648938?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%9C%D7%99%20%D7%96%D7%A8%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%91%D7%A0%D7%99%D7%AA%20%D7%9C%D7%9E%D7%9B%D7%95%D7%9F%20MMA%2C%20%D7%94%D7%95%D7%90%20%D7%A0%D7%A8%D7%90%D7%94%20%D7%9E%D7%93%D7%94%D7%99%D7%9D.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D." target="_blank" rel="noopener"><span class="lh">Designed by <b>עילי זר</b></span><span class="le">Designed by <b>Ilay Zar</b></span></a>
+      <a class="credit tappable" data-pos="credit" href="https://wa.me/972556648938?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%9C%D7%99%20%D7%96%D7%A8%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%91%D7%A0%D7%99%D7%AA%20%D7%9C%D7%9E%D7%9B%D7%95%D7%9F%20MMA%2C%20%D7%94%D7%95%D7%90%20%D7%A0%D7%A8%D7%90%D7%94%20%D7%9E%D7%93%D7%94%D7%99%D7%9D.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D." target="_blank" rel="noopener"><span class="lh">Designed by <bdi>עילי זר</bdi></span><span class="le">Designed by Ilay Zar</span></a>
     </div>
   </div>
 </footer>
-
-<!-- ════ CAMP REGISTRATION BADGE ════ -->
-<div class="camp-badge" id="campBadge">
-  <button class="camp-badge-x" id="campBadgeX" aria-label="סגור">✕</button>
-  <a class="camp-badge-link tappable" data-reg="camp" target="_blank" rel="noopener">
-    <span class="camp-badge-ic">🏕️</span>
-    <span class="camp-badge-txt">
-      <b><span class="lh">הרשמה לחוגים</span><span class="le">Class Registration</span></b>
-      <span><span class="lh"><bdi>349 ₪</bdi> · ההרשמה פתוחה — לחצו כאן</span><span class="le"><bdi>349 ₪</bdi> · Registration open — tap here</span></span>
-    </span>
-  </a>
-</div>
 
 <!-- ════ FLOAT DOCK ════ -->
 <div class="dock">
@@ -564,12 +538,12 @@
 <button id="toTop" aria-label="חזרה למעלה"><svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M4 7l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 <div id="langVeil"><div class="lv-logo"><img src="media/logo.webp" width="262" height="262" loading="lazy" alt="" style="width:100%;height:100%;object-fit:contain;background:#000"></div><div class="lv-line"></div><span class="lv-mark"></span></div>
 
-<div id="ctx" class="ctx" role="menu" aria-hidden="true"><div class="ctx-logo"><img src="media/logo.webp" width="262" height="262" loading="lazy" alt=""><div><div class="ctx-brand">TEAM MIZRACHI</div><div class="ctx-sub">MMA GYM · <span class="lh">גבעת שמואל</span><span class="le">Givat Shmuel</span></div></div></div><div class="ctx-divider"></div><a class="ctx-item" href="#disc"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">תחומים</span><span class="le">Disciplines</span></a><a class="ctx-item" href="#coaches"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">מאמנים</span><span class="le">Coaches</span></a><a class="ctx-item" href="#sched"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">לוח זמנים</span><span class="le">Schedule</span></a><a class="ctx-item" href="#finder"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">מצא סגנון</span><span class="le">Find Style</span></a><div class="ctx-divider"></div><a class="ctx-item" data-wa="join" data-pos="ctxmenu" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="lh">שיעור ניסיון חינם</span><span class="le">Free Trial Class</span></a><div class="ctx-divider"></div><div class="ctx-credit">Built by <b>Ilay Zar</b> · 055-664-8938</div></div>
+<div id="ctx" class="ctx" role="menu" aria-hidden="true"><div class="ctx-logo"><img src="media/logo.webp" width="262" height="262" loading="lazy" alt=""><div><div class="ctx-brand">TEAM MIZRACHI</div><div class="ctx-sub">MMA GYM · <span class="lh">גבעת שמואל</span><span class="le">Givat Shmuel</span></div></div></div><div class="ctx-divider"></div><a class="ctx-item" href="#disc"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">תחומים</span><span class="le">Disciplines</span></a><a class="ctx-item" href="#coaches"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">מאמנים</span><span class="le">Coaches</span></a><a class="ctx-item" href="#sched"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">לוח זמנים</span><span class="le">Schedule</span></a><a class="ctx-item" href="#finder"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3c-2 3.3-2 14.7 0 18M12 3c2 3.3 2 14.7 0 18"/></svg><span class="lh">מצא סגנון</span><span class="le">Find Style</span></a><div class="ctx-divider"></div><a class="ctx-item" data-wa="join" data-pos="ctxmenu" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="lh">שיעור ניסיון חינם</span><span class="le">Free Trial Class</span></a></div>
 
 <!-- ═══════════════════ AI CHATBOT WIDGET ═══════════════════ -->
 <div class="tmc-teaser" id="tmcTeaser">
   <button class="x" id="tmcTeaserX" aria-label="סגור">✕</button>
-  <span class="lh">שיעור ניסיון <b>חינם</b>? 🥊 בוא נקבע לך ממש כאן — 30 שניות</span><span class="le">Free trial class? 🥊 <b>Book it right here</b> — 30 seconds</span>
+  <span class="t-long"><span class="lh">שיעור ניסיון <b>חינם</b>? 🥊 בוא נקבע לך ממש כאן — 30 שניות</span><span class="le">Free trial class? 🥊 <b>Book it right here</b> — 30 seconds</span></span><span class="t-short"><span class="lh">בוא נקבע לך שיעור ניסיון <b>חינם</b></span><span class="le">Book a <b>free</b> trial class here</span></span>
 </div>
 <div class="tmc-ov" id="tmcOv"></div>
 <button class="tmc-fab tappable" id="tmcFab" aria-label="פתח צ'אט">
