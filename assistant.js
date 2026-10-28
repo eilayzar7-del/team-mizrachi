@@ -125,6 +125,59 @@ var panel=el('tmcPanel'),fab=el('tmcFab'),ov=el('tmcOv'),msgsEl=el('tmcMsgs'),
 
 function scrollDown(){requestAnimationFrame(function(){msgsEl.scrollTop=msgsEl.scrollHeight})}
 
+/* ── typewriter: character by character, rAF-driven ──
+   typeInto(el, source, opts) — source is a string or a function returning the text
+   received so far (so it also works on a growing stream buffer). Reveals ~45 chars/s,
+   easing smoothly up to ~140 chars/s while a large backlog is waiting. Keeps the
+   view pinned to the bottom unless the reader scrolled up. Reduced motion: instant.
+   Returns {stop()}; opts.done(text) fires when everything is shown and source is done
+   (opts.isDone() → true, or immediately for a plain string). */
+var TW_REDUCE=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+function nearBottom(){return msgsEl.scrollHeight-msgsEl.scrollTop-msgsEl.clientHeight<48}
+function safeSlice(t,n){
+  var out=t.slice(0,n);
+  /* never cut inside a surrogate pair (emoji) */
+  var c=out.charCodeAt(out.length-1);if(c>=0xD800&&c<=0xDBFF)out=out.slice(0,-1);
+  /* hide an unclosed ** so bold doesn't flash as asterisks first */
+  if(((out.match(/\*\*/g)||[]).length)%2===1)out=out.slice(0,out.lastIndexOf('**'));
+  else if(/\*$/.test(out)&&t.charAt(n)==='*')out=out.slice(0,-1);
+  return out;
+}
+function typeInto(target,source,opts){
+  opts=opts||{};
+  var get=typeof source==='function'?source:function(){return source};
+  var isDone=opts.isDone||function(){return typeof source!=='function'};
+  var shown=0,rate=45,last=0,raf=0,stopped=false,lastHtml='';
+  target.classList.add('tmc-stream');
+  function paint(n){
+    var html=md(safeSlice(get(),n));
+    if(html!==lastHtml){var pin=nearBottom();target.innerHTML=html;lastHtml=html;if(pin)msgsEl.scrollTop=msgsEl.scrollHeight;}
+  }
+  function finish(){
+    target.classList.remove('tmc-stream');
+    var full=get();var pin=nearBottom();target.innerHTML=md(full);if(pin)msgsEl.scrollTop=msgsEl.scrollHeight;
+    if(opts.done)opts.done(full);
+  }
+  if(TW_REDUCE&&isDone()){finish();return{stop:function(){}};}
+  function frame(now){
+    if(stopped)return;
+    var dt=last?Math.min((now-last)/1000,.1):0;last=now;
+    var text=get(),backlog=text.length-shown;
+    if(TW_REDUCE){shown=text.length;}
+    else{
+      /* target speed grows with the backlog; ease toward it so speed never jumps */
+      var want=45+95*Math.max(0,Math.min(1,(backlog-30)/220));
+      rate+=(want-rate)*Math.min(1,dt*3);
+      shown=Math.min(text.length,shown+rate*dt);
+    }
+    paint(Math.floor(shown));
+    if(Math.floor(shown)>=text.length&&isDone()){finish();return;}
+    raf=requestAnimationFrame(frame);
+  }
+  raf=requestAnimationFrame(frame);
+  return{stop:function(){stopped=true;cancelAnimationFrame(raf);target.classList.remove('tmc-stream');}};
+}
+
 /* ── markdown: escape → links → bold → breaks ── */
 function md(t){
   t=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -170,11 +223,23 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.class
 function hideTeaser(){if(teaser){teaser.classList.remove('show')}}
 el('tmcTeaserX').addEventListener('click',function(e){e.stopPropagation();hideTeaser();try{sessionStorage.setItem('tmcTeaser','1')}catch(_){}});
 teaser.addEventListener('click',toggle);
-setTimeout(function(){
-  var seen;try{seen=sessionStorage.getItem('tmcTeaser')}catch(_){}
-  if(!seen&&!panel.classList.contains('open'))teaser.classList.add('show');
-  setTimeout(hideTeaser,9000);
-},4200);
+/* desktop: after 4.2s. Phones: only once the visitor has scrolled past the hero,
+   so the toast never sits on top of the hero content */
+(function(){
+  var shown=false,timeUp=false;
+  var mobile=window.matchMedia('(max-width:760px)').matches;
+  var hero=document.getElementById('hero');
+  function pastHero(){return !mobile||!hero||window.scrollY>hero.offsetHeight*.9}
+  function tryShow(){
+    if(shown||!timeUp||!pastHero())return;
+    shown=true;window.removeEventListener('scroll',tryShow);
+    var seen;try{seen=sessionStorage.getItem('tmcTeaser')}catch(_){}
+    if(!seen&&!panel.classList.contains('open'))teaser.classList.add('show');
+    setTimeout(hideTeaser,9000);
+  }
+  setTimeout(function(){timeUp=true;tryShow();},4200);
+  if(mobile)window.addEventListener('scroll',tryShow,{passive:true});
+})();
 
 /* ── message bubbles ── */
 function bubbleUser(t){var d=document.createElement('div');d.className='tmc-msg tmc-user';d.textContent=t;msgsEl.appendChild(d);scrollDown()}
@@ -222,11 +287,8 @@ function showBookingCard(b){
 }
 /* typewriter for non-streaming bot messages (greeting + demo fallback) */
 function typeBot(text,speed,done){
-  var bot=bubbleBot(true),n=0;
-  var t=setInterval(function(){
-    if(n<text.length){n++;bot.innerHTML=md(text.slice(0,n));scrollDown();}
-    else{clearInterval(t);bot.classList.remove('tmc-stream');if(done)done();}
-  },speed||16);
+  var bot=bubbleBot(true);
+  typeInto(bot,text,{done:function(){if(done)done();}});
   return bot;
 }
 function showTyping(){var d=document.createElement('div');d.className='tmc-typing';d.id='tmcTyping';d.innerHTML='<span class="tmc-td"></span><span class="tmc-td"></span><span class="tmc-td"></span>';msgsEl.appendChild(d);scrollDown()}
@@ -272,7 +334,7 @@ function realSend(){
   controller.signal.addEventListener('abort',function(){
     aborted=true;
     if(typeTimer){
-      clearInterval(typeTimer);typeTimer=null;
+      typeTimer.stop();typeTimer=null;
       if(bot){bot.classList.remove('tmc-stream');
         bot.innerHTML+='<span class="tmc-stopped">'+T().stopped+'</span>';
         msgs.push({role:'assistant',content:bot.textContent});}
@@ -293,16 +355,14 @@ function realSend(){
     var raw=(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content)||'';
     if(!raw){addBot(T().err);setStreaming(false);controller=null;return;}
     var ex=extractBooking(raw),content=ex.clean;
-    bot=bubbleBot(true);var n=0;
-    typeTimer=setInterval(function(){
-      if(aborted){clearInterval(typeTimer);typeTimer=null;return;}
-      if(n<content.length){n++;bot.innerHTML=md(content.slice(0,n));scrollDown();}
-      else{clearInterval(typeTimer);typeTimer=null;bot.classList.remove('tmc-stream');
-        msgs.push({role:'assistant',content:content});
-        setStreaming(false);controller=null;
-        if(ex.booking)showBookingCard(ex.booking);
-        if(window.innerWidth>600)setTimeout(function(){inp.focus()},60);}
-    },16);
+    bot=bubbleBot(true);
+    typeTimer=typeInto(bot,content,{done:function(){
+      typeTimer=null;if(aborted)return;
+      msgs.push({role:'assistant',content:content});
+      setStreaming(false);controller=null;
+      if(ex.booking)showBookingCard(ex.booking);
+      if(window.innerWidth>600)setTimeout(function(){inp.focus()},60);
+    }});
   }).catch(function(err){
     rmTyping();
     if(err.name!=='AbortError'&&!aborted){

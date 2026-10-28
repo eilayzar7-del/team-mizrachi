@@ -1448,3 +1448,38 @@ img,video{-webkit-touch-callout:none}
   body{-webkit-user-select:none;user-select:none}
   input,textarea,.tmc-input,.sched-board td,.sched-board th,.tmc-msgs,.tmc-msg,.tmc-booking{-webkit-user-select:text;user-select:text}
 }
+
+/* chat typewriter: soft caret (fades instead of blinking hard) */
+.tmc-bot.tmc-stream::after{width:2px;border-radius:2px;opacity:.85;animation:tmcCaretSoft 1s ease-in-out infinite}
+@keyframes tmcCaretSoft{0%,100%{opacity:.85}50%{opacity:.2}}
+@media(prefers-reduced-motion:reduce){.tmc-bot.tmc-stream::after{animation:none}}
+
+/* ── phones: two floats only (WhatsApp over chat, bottom-right, 12px gap); IG/TikTok live in the footer ──
+   hero compacted so the stats row sits fully on the first screen, clear of the floats */
+@media(max-width:760px){
+  .fab.tt,.fab.ig{display:none}
+  .dock{inset-inline-start:auto;inset-inline-end:auto;left:auto;right:14px;flex-direction:column;gap:12px;
+    bottom:calc(16px + 54px + 12px + var(--safe-b))}
+  .fab.wa{width:54px;height:54px}
+  .tmc-fab{inset-inline-end:auto;inset-inline-start:auto;left:auto;right:14px;bottom:calc(16px + var(--safe-b));width:54px;height:54px}
+  .tmc-teaser{inset-inline-start:auto;inset-inline-end:auto;left:auto;right:14px;bottom:calc(16px + 54px + 12px + 54px + 14px + var(--safe-b));max-width:230px}
+  .tmc-teaser::after{display:none}
+  footer{padding-bottom:calc(160px + var(--safe-b))}
+  /* hero */
+  #hero{padding-top:146px}
+  .crest{width:72px;height:72px;margin-bottom:12px}
+  .hero-eye{margin-bottom:10px}
+  .mega{font-size:clamp(4rem,19vw,5.6rem)}
+  .hero-sub{margin-top:14px;font-size:.95rem;line-height:1.7}
+  .hero-cta{margin-top:22px;gap:8px}
+  .hero-cta .btn-fill{padding:14px 20px;font-size:1.12rem}
+  .hero-cta .btn-ghost,.hero-cta .btn-gold{padding:11px 8px;font-size:.95rem}
+  .hero-in{padding-bottom:20px}
+  .tape-grid{grid-template-columns:repeat(4,1fr)}
+  .tape-c{padding:12px 4px 14px;border-bottom:none!important;border-right:1px solid var(--line2)}
+  .tape-c:first-child{border-right:none}
+  .tape-n{font-size:1.5rem}
+  .tape-l{font-size:.62rem;letter-spacing:0;line-height:1.35;margin-top:4px}
+  #hero{padding-bottom:calc(140px + var(--safe-b))}
+}
+@media(max-width:760px) and (min-height:900px){#hero{padding-bottom:0}}
