@@ -451,7 +451,7 @@ console.log('\n--- B. quiz: complete, retake, then WhatsApp ---');
     since(m0, 'B').filter(x => x.body?.event === 'quiz_complete').length === 1);
   check('B2 PostHog still recorded both quiz_complete events', !!phBoth);
 
-  await press(page, '#finderBody .f-actions a.btn-wa');
+  await press(page, '#finderBody .f-actions a[data-pos="quiz-result"]');
   await page.waitForTimeout(1500);
   const all = since(m0, 'B');
   check('B3 quiz completed, then WhatsApp tapped → TWO POSTs (quiz_complete, whatsapp_click/quiz-result)',

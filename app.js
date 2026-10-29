@@ -53,7 +53,7 @@ var DISCIPLINES=[
    msg:L2('שלום! 💪 מתעניין/ת בשיעורי ג\'ודו ב-Team Mizrachi — אשמח לפרטים!','Hi! 💪 Interested in Judo classes at Team Mizrachi — would love details!')},
   {n:'Muay Thai',sub:L2('איגרוף תאילנדי — 8 נקודות מגע','Thai Boxing — 8 points of contact'),ic:'strike',
    msg:L2('שלום! 💪 מתעניין/ת בשיעורי Muay Thai ב-Team Mizrachi — אשמח לפרטים!','Hi! 💪 Interested in Muay Thai at Team Mizrachi — would love details!')},
-  {n:L2('גרפלינג','Grappling'),sub:L2('היאבקות ללא חליפה — NOGI','No-gi wrestling — NOGI'),ic:'grapple',
+  {n:L2('גרפלינג','Grappling'),sub:L2('היאבקות ללא חליפה — NOGI','No-gi wrestling — NOGI'),ic:'grip',
    msg:L2('שלום! 💪 מתעניין/ת בשיעורי גרפלינג ב-Team Mizrachi — אשמח לפרטים!','Hi! 💪 Interested in Grappling at Team Mizrachi — would love details!')},
   {n:L2('קרב מגע','Krav Maga'),sub:L2('הגנה עצמית אמיתית ויעילה','Real, effective self-defense'),ic:'shield',
    msg:L2('שלום! 💪 מתעניין/ת בשיעורי קרב מגע ב-Team Mizrachi — אשמח לפרטים!','Hi! 💪 Interested in Krav Maga at Team Mizrachi — would love details!')}
@@ -61,6 +61,8 @@ var DISCIPLINES=[
 var ICONS={
   flame:'<path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 002.5 2.5z"/>',
   grapple:'<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.1a4 4 0 010 7.8M21 21v-2a4 4 0 00-3-3.9"/>',
+  /* grip (lucide "grab"): grappling gets its own icon, distinct from BJJ */
+  grip:'<path d="M18 11.5V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1.4"/><path d="M14 10V8a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 9.9V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v5"/><path d="M6 14a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0"/>',
   judo:'<path d="M6 21l6-13 6 13"/><path d="M9 14h6"/><circle cx="12" cy="5" r="2"/>',
   strike:'<path d="M4 14a1 1 0 01-.78-1.63l9.9-10.2a.5.5 0 01.86.46l-1.92 6.02A1 1 0 0013 10h7a1 1 0 01.78 1.63l-9.9 10.2a.5.5 0 01-.86-.46l1.92-6.02A1 1 0 0011 14z"/>',
   shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 011-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 011.52 0C14.51 3.81 17 5 19 5a1 1 0 011 1z"/>',
@@ -104,7 +106,7 @@ var DAYS={
     ['15:15', C('MMA נבחרת','MMA Select Team',LINK.allin), null],
     ['16:00', C('MMA ג-ה','MMA Grades 3-5',LINK.mmaH), C('ג\'ודו ג-ה','Judo Grades 3-5',LINK.judoC)],
     ['16:45', C('MMA א-ב','MMA Beginners',LINK.mmaH), C('ג\'ודו א-ב','Judo Grades 1-2',LINK.judoC)],
-    ['17:30', C('ג\'ודו חובה+א','Judo Kindergarten+1st Grade',LINK.judoH), C('ג\'ודו חובה+ט','Judo Kindergarten+1st Grade',LINK.judoC)],
+    ['17:30', C('ג\'ודו חובה+א','Judo Kindergarten+1st Grade',LINK.judoH), C('ג\'ודו חובה+א','Judo Kindergarten+1st Grade',LINK.judoC)],
     ['17:45', C('ג\'ודו אולימפי ג-ה','Olympic Judo Grades 3-5',LINK.judoH), null],
     ['18:15', C('MMA ו-ח','MMA Grades 6-8',LINK.mmaH), C('ג\'ודו ו-ח','Judo Grades 6-8',LINK.judoC)],
     ['18:30', C('ג\'ודו ו-ח','Judo Grades 6-8',LINK.judoH), null],
@@ -136,7 +138,7 @@ var DAYS={
     ['16:00', C('MMA ג-ה','MMA Grades 3-5',LINK.mmaH), C('ג\'ודו ג-ה','Judo Grades 3-5',LINK.judoC)],
     ['16:45', C('MMA א-ב','MMA Beginners',LINK.mmaH), C('ג\'ודו א-ב','Judo Grades 1-2',LINK.judoC)],
     ['17:00', C('ג\'ימבו גן חובה','Gymbo Kindergarten',LINK.judoH), null],
-    ['17:30', null, C('ג\'ודו חובה+ט','Judo Kindergarten+1st Grade',LINK.judoC)],
+    ['17:30', null, C('ג\'ודו חובה+א','Judo Kindergarten+1st Grade',LINK.judoC)],
     ['18:15', C('הגנה עצמית בנות ג-ה','Girls Self-Defense 3-5',LINK.girls), C('ג\'ודו ו-ח','Judo Grades 6-8',LINK.judoC)],
     ['18:15 ', C('הגנה עצמית נערות','Teen Girls Self-Defense',LINK.girls), null],
     ['18:15  ', C('MMA ו-ח','MMA Grades 6-8',LINK.mmaH), null],
@@ -182,7 +184,7 @@ var DAYS={
   COACHES.forEach(function(c){
     h+='<div class="coach'+(c.sensei?' sensei':'')+'" data-tilt>'+
        '<div class="sheen"></div>'+
-       (c.sensei?'<span class="coach-tag">הסנסיי</span>':'')+
+       (c.sensei?'<span class="coach-tag">'+L2('הסנסיי','Head Coach')+'</span>':'')+
        '<div class="coach-pic"><img src="'+c.img+'" width="320" height="320" alt="'+c.name+'" loading="lazy" decoding="async"></div>'+
        '<div class="coach-bar"></div>'+
        '<div class="coach-body"><div class="coach-name">'+c.name+'</div>'+
@@ -409,10 +411,12 @@ window.addEventListener('scroll',onScroll,{passive:true});
 window.tmOnScroll=onScroll; /* exposed for the GSAP/Lenis layer (separate IIFE) */
 
 /* side dots */
+var SEC_NAMES={hero:['פתיחה','Top'],promo:['סרטון','Video'],finder:['מצא סגנון','Find your style'],show:['המתחם','The gym'],disc:['תחומים','Disciplines'],coaches:['מאמנים','Coaches'],wins:['ניצחונות','Wins'],sched:['לוח זמנים','Schedule'],register:['הרשמה','Register'],cta:['הצטרפות','Join']};
+document.addEventListener('tmlang',function(e){$$('.dot').forEach(function(d){var n=SEC_NAMES[d.getAttribute('data-sec')];if(n)d.setAttribute('aria-label',e.detail==='en'?n[1]:n[0]);});});
 var SEC=['hero','promo','finder','show','disc','coaches','wins','sched','register','cta'].filter(function(id){return!!document.getElementById(id)});
 var dotWrap=document.createElement('div');dotWrap.className='dots';
 var dots=SEC.map(function(id){
-  var d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',id);
+  var d=document.createElement('button');d.className='dot';d.setAttribute('data-sec',id);d.setAttribute('aria-label',(SEC_NAMES[id]||[id])[0]);
   d.addEventListener('click',function(){document.getElementById(id).scrollIntoView({behavior:'smooth'})});
   dotWrap.appendChild(d);return d;
 });
@@ -514,7 +518,7 @@ function recommend(who,goal,exp,timing){
    fact:L2('קבוצות נשים בלבד, מאמנת מקצועית ואווירה תומכת ובלי שיפוטיות','Women-only groups, a pro coach and a supportive, judgment-free vibe')};
  else if(goal==='defense')r={lat:'KRAV',he:L2('קרב מגע','Krav Maga'),desc:L2('הגנה עצמית ישראלית, פרקטית ויעילה. לומדים להגיב מהר, בלי כללים — לשרוד כל סיטואציה.','Israeli self-defense, practical and effective. React fast, no rules — survive any situation.'),cls:'Krav Maga',score:93,
    fact:L2('שיטה ישראלית פרקטית שנועדה לתת מענה אמיתי לכל מצב','A practical Israeli method built to give a real answer to any situation')};
- else if(goal==='compete')r={lat:'MMA',he:L2('MMA · BJJ','MMA · BJJ'),desc:L2('הדיסציפלינה השלמה. עמידה, קליל\'ה והגשות — מסלול אמיתי לתחרות תחת מאמנים בכירים.','The complete discipline. Striking, clinch and submissions — a real path to competition.'),cls:'MMA / BJJ',score:95,
+ else if(goal==='compete')r={lat:'MMA',he:L2('MMA · BJJ','MMA · BJJ'),desc:L2('הדיסציפלינה השלמה. עמידה, קלינץ\' והגשות — מסלול אמיתי לתחרות תחת מאמנים בכירים.','The complete discipline. Striking, clinch and submissions — a real path to competition.'),cls:'MMA / BJJ',score:95,
    fact:L2('מסלול אמיתי לתחרות תחת מאמנים בכירים עם 15+ שנות ניסיון','A real competition track under senior coaches with 15+ years of experience')};
  else if(goal==='fit')r={lat:'THAI',he:L2('איגרוף תאילנדי · MMA','Muay Thai · MMA'),desc:L2('האימון שמדליק את הגוף. בעיטות, אגרופים וברכיים — קלוריות נשרפות, אבל הראש מתנקה.','The workout that lights you up. Kicks, punches and knees — calories burn, the mind clears.'),cls:'Muay Thai / MMA',score:95,
    fact:L2('אימון אינטרוולים שמבעיר קלוריות ומנקה את הראש תוך שעה אחת','An interval workout that torches calories and clears your head in one hour')};
@@ -598,15 +602,14 @@ function showResult(){
     '<span class="f-badge">'+svg('target',15)+L2('הסגנון שלך','Your style')+'</span>'+
     '<div class="f-rec lat">'+r.lat+'</div>'+
     '<div class="f-rec-he">'+r.he+'</div>'+
-    '<div class="f-score">'+L2('רמת התאמה','Match level')+'<b>'+r.score+'%</b></div>'+
     '<p class="f-desc">'+r.desc+'</p>'+
     '<ul class="f-reasons">'+reasons+'</ul>'+
     '<div class="f-actions">'+
-      '<button class="btn btn-md btn-fill tappable" id="fAsk"><span class="sweep"></span>'+
-        '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+
-        L2('שאל את העוזר החכם','Ask the AI assistant')+'</button>'+
-      '<a class="btn btn-md btn-wa tappable" data-pos="quiz-result" href="'+wa(msg)+'" target="_blank" rel="noopener">'+'<svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>'+
+      '<a class="btn btn-md btn-fill tappable" data-pos="quiz-result" href="'+wa(msg)+'" target="_blank" rel="noopener"><span class="sweep"></span>'+'<svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>'+
         (fState.timing==='now'?L2('קבע שיעור ניסיון — השבוע!','Book a trial — this week!'):L2('קבע שיעור ניסיון','Book a free trial'))+'</a>'+
+      '<button class="btn btn-md btn-ghost tappable" id="fAsk">'+
+        '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+
+        L2('שאל את העוזר','Ask the assistant')+'</button>'+
       '<button class="f-reset tappable" id="fReset">'+L2('נסה שוב ↺','Try again ↺')+'</button>'+
     '</div></div>';
   /* impact: red flash + shell punch-shake + score count-up */
@@ -617,10 +620,6 @@ function showResult(){
       onComplete:function(){flash.remove()}});
     if(shell)gsap.fromTo(shell,{x:0},{keyframes:[{x:-7,duration:.05},{x:6,duration:.05},{x:-4,duration:.05},{x:2,duration:.05},{x:0,duration:.06}]});
     gsap.from('.f-result > *',{y:26,opacity:0,duration:.6,ease:'power3.out',stagger:.07});
-    var sc=$('.f-score b');
-    if(sc){var scT=parseInt(sc.textContent)||0,scO={v:0};
-      gsap.to(scO,{v:scT,duration:1.1,ease:'power2.out',
-        onUpdate:function(){sc.textContent=Math.round(scO.v)+'%'}});}
   }
   bindBtns(body);
   var ab=$('#fAsk');if(ab)ab.addEventListener('click',function(){if(window.tmOpenChat)window.tmOpenChat(ask,true);});
@@ -791,9 +790,9 @@ if(mlb)mlb.addEventListener('click',toggleLang);
   var loaded=false,failed=false;
   /* on-brand poster: reuse a photo already loaded elsewhere on the page
      so the card looks like a real video thumbnail at zero extra cost */
-  var poster=document.querySelector('.show-photo img');
-  if(poster&&poster.src){
-    skel.style.backgroundImage="linear-gradient(180deg,rgba(10,10,12,.32),rgba(10,10,12,.9)),url('"+poster.src+"')";
+  var poster='media/win-cage.jpg'; /* a real frame from our fighters, not the flyer */
+  if(poster){
+    skel.style.backgroundImage="linear-gradient(180deg,rgba(10,10,12,.32),rgba(10,10,12,.9)),url('"+poster+"')";
     skel.style.backgroundSize='cover';
     skel.style.backgroundPosition='center 30%';
   }
@@ -949,7 +948,7 @@ $('#yr').textContent=new Date().getFullYear();
       /* dots */
       document.querySelectorAll('.dot').forEach(function(d){
         d.addEventListener('click',function(){
-          var id=d.getAttribute('aria-label');var s=document.getElementById(id);
+          var id=d.getAttribute('data-sec');var s=document.getElementById(id);
           if(s&&lenis)lenis.scrollTo(s,{offset:-70,duration:1.1});
         },{capture:true});
       });

@@ -1526,3 +1526,69 @@ a[data-reg="camp"].btn{animation:none}
 /* ── final CTA: its bottom glow fades into the footer black instead of stopping on a hard line ── */
 #cta::after{content:'';position:absolute;inset-inline:0;bottom:0;height:120px;z-index:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,0),#000)}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ROUND 2 — 29.10
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── phones: no teaser; the chat button sits on the inline-end side (left in Hebrew, right in English)
+   and steps aside (JS adds .dodge) while it would cover a quiz result button or a schedule time ── */
+@media(max-width:760px){
+  .tmc-teaser{display:none!important}
+  html[lang=he] .tmc-fab{right:auto;left:14px}
+  html[lang=en] .tmc-fab{left:auto;right:14px}
+  #finder,#sched{padding-bottom:calc(96px + var(--safe-b))}
+}
+.tmc-fab.dodge{opacity:0;transform:translateY(14px) scale(.85);pointer-events:none;animation:none}
+
+/* ── showcase: a real room photo (portrait frame) ── */
+.show-photo{aspect-ratio:4/5}
+.show-photo img{object-position:center 40%}
+@media(min-width:981px){
+  .show-grid{grid-template-columns:minmax(0,460px) minmax(0,520px);justify-content:center;gap:96px}
+}
+
+/* ── desktop first screens: smaller crest and wordmark so the stats row is on screen at 900px tall ── */
+@media(min-width:761px){
+  :root{--fs-display:clamp(3.75rem,10.5vw,8.25rem)}
+  .crest{width:72px;height:72px;margin-bottom:16px}
+  #hero{min-height:calc(100svh - 24px);padding-top:92px}
+}
+@media(min-width:861px){
+  .promo-grid{grid-template-columns:minmax(0,520px) 372px;justify-content:center;gap:96px}
+}
+
+/* ── Hebrew: no letter-spacing on any label; tracking stays for English only ── */
+html[lang=he] .lh,html[lang=he] .coach-tag,html[lang=he] .ctx-sub,html[lang=he] .tmc-brand,html[lang=he] .f-reset{letter-spacing:0}
+
+/* ── nothing meant to be read below 12px ── */
+.tape-l,.reg-loc,.scrollcue,.reel-tag,.win-tag,.coach-city,.coach-tag,.ps span,.f-step,.show-tag,
+.tmc-status,.ctx-sub,.tmc-brand{font-size:.75rem}
+.win-tag .lh{font-size:1em}
+.win-cap>span,.reg-go,.f-opt .ot small{font-size:.8125rem}
+.foot-brand .fb-s{font-size:.875rem}
+.disc-sub,.coach-role{font-size:.875rem;color:var(--steel)}
+@media(max-width:760px){.tape-l{font-size:.75rem;letter-spacing:0}.disc-sub,.coach-role{font-size:.875rem}}
+
+/* ── wins captions never run under the mute button; firmer bottom scrim ── */
+.win-cap{padding-inline-end:64px}
+.win-media::after{background:linear-gradient(180deg,rgba(8,8,10,.25),transparent 24%,transparent 46%,rgba(8,8,10,.94))}
+
+/* ── registration: one naming system for the two sites, street as a quiet second line ── */
+.reg-loc.both{background:rgba(255,255,255,.07);color:var(--bone)}
+.reg-street{font-size:.8125rem;color:var(--faint);line-height:1.4}
+
+/* ── disciplines: the WhatsApp mark is always visible ── */
+.disc-go{opacity:1;transform:none;color:var(--faint)}
+
+/* ── arrows follow the reading direction ── */
+html[lang=en] .f-opt .arr{transform:scaleX(-1)}
+html[lang=en] .f-opt:hover .arr{transform:scaleX(-1) translateX(-4px)}
+
+/* ── ticker: the six disciplines, seamless loop ── */
+.ticker{direction:ltr}
+.ticker-item{padding:0}
+.ticker-sep{margin:0 .9em}
+.win-card.gold .win-cap{padding-inline-end:var(--s2)} /* no mute button on the podium photo */
+/* six narrow cards on desktop: the caption sits above the mute button instead of beside it */
+@media(min-width:1081px){.win-cap{padding-inline-end:var(--s2);padding-bottom:60px}.win-card.gold .win-cap{padding-bottom:14px}}

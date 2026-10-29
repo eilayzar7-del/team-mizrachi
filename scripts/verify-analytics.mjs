@@ -243,7 +243,7 @@ for (const day of ['sun', 'mon', 'tue', 'wed', 'thu']) {
   quizLog.attemptA = quizSlice(mA);
 
   // Quiz-result WhatsApp touchpoint.
-  await hit(page, '#finderBody .f-actions a.btn-wa', 'quiz result CTA', { ...D, expectPos: 'quiz-result', expectNum: ACADEMY });
+  await hit(page, '#finderBody .f-actions a[data-pos="quiz-result"]', 'quiz result CTA', { ...D, expectPos: 'quiz-result', expectNum: ACADEMY });
 
   // Attempt B (retake): Q1, Q2, then the only UI path that re-shows Q1
   // mid-attempt (language toggle → renderFinder(0), fState kept), re-answer
@@ -337,7 +337,7 @@ await hit(mpage, '#cta a[data-wa]', 'final CTA section', { ...M, expectPos: 'cta
   await waitForEvent(mQ, 'quiz_complete');
   await mpage.waitForTimeout(3500);
   quizLog.mobile = allEvents.slice(mQ).filter(e => ['quiz_start', 'quiz_step', 'quiz_complete'].includes(e.event));
-  await hit(mpage, '#finderBody .f-actions a.btn-wa', 'quiz result CTA', { ...M, expectPos: 'quiz-result', expectNum: ACADEMY });
+  await hit(mpage, '#finderBody .f-actions a[data-pos="quiz-result"]', 'quiz result CTA', { ...M, expectPos: 'quiz-result', expectNum: ACADEMY });
 }
 await mpage.evaluate(() => window.scrollTo(0, 0));
 await mpage.waitForTimeout(600);
