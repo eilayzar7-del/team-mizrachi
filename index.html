@@ -34,6 +34,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600&family=Rubik:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <!-- ─── GSAP + ScrollTrigger + Lenis ─── -->
+<script src="/a11y.js" data-statement="/accessibility.html" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -878,6 +879,8 @@ a[data-reg="camp"].btn{animation:augPulse 2.2s ease-in-out infinite}
 .tmc-input:focus{border-color:var(--blood);box-shadow:0 0 0 3px rgba(209,0,0,.13)}
 .tmc-input::placeholder{color:var(--faint)}
 .tmc-input:disabled{opacity:.55}
+.tmc-note{font-size:11px;line-height:1.4;color:var(--faint);text-align:center;padding:2px 14px 0}.tmc-note a{color:inherit;text-decoration:underline}
+.legal-links{font-size:13px;text-align:center;margin:14px 0 4px;opacity:.75}.legal-links a{color:inherit;text-decoration:underline;margin:0 6px}
 .tmc-send,.tmc-stop{width:40px;height:40px;flex-shrink:0;border-radius:11px;display:grid;place-items:center;color:#fff;
   transition:transform .2s,box-shadow .2s,opacity .2s}
 .tmc-send{background:linear-gradient(135deg,#FF2E2E,#C00)}
@@ -1667,6 +1670,7 @@ html[lang=en] .win-cap .lh{display:none}
       </div>
       <a class="cb-cta tappable" data-pos="creator-band" href="https://wa.me/972556648938?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%9C%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%9C%20Team%20Mizrachi%20%D7%95%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%90%D7%AA%D7%A8%20%D7%91%D7%A8%D7%9E%D7%94%20%D7%9B%D7%96%D7%95%21" target="_blank" rel="noopener"><span class="lh">רוצה אתר כזה? דבר איתי ←</span><span class="le">Want a site like this? Let's talk →</span></a>
     </div>
+    <div class="legal-links"><a href="/privacy.html">מדיניות פרטיות</a> · <a href="/accessibility.html">הצהרת נגישות</a> · <a href="/terms.html">תנאי שימוש</a></div>
     <div class="foot-bot">
       <span class="foot-copy">© <span id="yr">2026</span> Team Mizrachi MMA Gym · <span class="lh">גבעת שמואל</span><span class="le">Givat Shmuel</span></span>
       <a class="credit tappable" data-pos="credit" href="https://wa.me/972556648938?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%9C%D7%99%20%D7%96%D7%A8%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%A9%D7%91%D7%A0%D7%99%D7%AA%20%D7%9C%D7%9E%D7%9B%D7%95%D7%9F%20MMA%2C%20%D7%94%D7%95%D7%90%20%D7%A0%D7%A8%D7%90%D7%94%20%D7%9E%D7%93%D7%94%D7%99%D7%9D.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D." target="_blank" rel="noopener"><span class="lh">Designed by <b>עילי זר</b></span><span class="le">Designed by <b>Ilay Zar</b></span></a>
@@ -2609,6 +2613,7 @@ $('#yr').textContent=new Date().getFullYear();
     <button class="tmc-stop" id="tmcStop" aria-label="עצור"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></button>
     <textarea class="tmc-input" id="tmcInput" placeholder="שאל/י אותנו הכל…" rows="1" dir="rtl"></textarea>
   </div>
+  <div class="tmc-note"><span class="lh">העוזר מבוסס בינה מלאכותית וייתכנו טעויות. אל תכתבו פרטים רגישים. <a href="/privacy.html" target="_blank" rel="noopener">פרטיות</a></span><span class="le">AI assistant, may make mistakes. Please don't share sensitive details. <a href="/privacy.html" target="_blank" rel="noopener">Privacy</a></span></div>
   <div class="tmc-brand"><span class="lh">מופעל ע״י <a data-pos="chat-credit" href="https://wa.me/972556648938" target="_blank" rel="noopener">עילי זר</a></span><span class="le">Powered by <a data-pos="chat-credit" href="https://wa.me/972556648938" target="_blank" rel="noopener">Ilay Zar</a></span></div>
 </div>
 

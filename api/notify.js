@@ -111,9 +111,7 @@ export default async function handler(req, res) {
 
   const webhook = process.env.DISCORD_WEBHOOK_URL;
   if (!webhook) {
-    return res
-      .status(500)
-      .json({ error: 'DISCORD_WEBHOOK_URL is not set in Vercel environment variables' });
+    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   let fields;
